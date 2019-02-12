@@ -33,28 +33,32 @@ export class AppComponent implements OnInit {
       {
         hour: this.now.clone().hour(8).minute(0),
         am: true,
-        isClicked: false
+        isClicked: false,
+        dispo: 8
       }
     );
     this.tournees.push(
       {
         hour: this.now.clone().hour(11).minute(0),
         am: true,
-        isClicked: false
+        isClicked: false,
+        dispo: 8
       }
     );
     this.tournees.push(
       {
         hour: this.now.clone().hour(14).minute(0),
         am: false,
-        isClicked: false
+        isClicked: false,
+        dispo: 8
       }
     );
     this.tournees.push(
       {
         hour: this.now.clone().hour(17).minute(0),
         am: false,
-        isClicked: false
+        isClicked: false,
+        dispo: 0
       }
     );
   }

@@ -12,6 +12,7 @@
     <ul class="list list-unstyled">
       <li *ngFor="let tournee of tournees">
         <div
+           [appResaAuto]="tournee"
           [ngClass]="{'alert': true, 'alert-success': true, 'morning': tournee.am, 'afternoon': !tournee.am, 'clicked': tournee.isClicked}"
           (click)="doResa(tournee)">
             {{ tournee.hour | momentPipe: {affichage: 'HH'} }}
