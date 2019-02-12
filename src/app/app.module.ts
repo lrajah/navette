@@ -3,10 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MyComponentComponent } from './components/my-component/my-component.component';
+import { MomentPipe } from './shared/pipes/moment-pipe.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MyComponentComponent,
+    MomentPipe
   ],
   imports: [
     BrowserModule,

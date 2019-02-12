@@ -1,0 +1,23 @@
+ul {
+  list-style-type: none;
+
+  li {
+    cursor: pointer;
+    .morning {
+      color: rgba(127, 128, 255, 1);
+      &.clicked {
+        background-color: rgba(127, 128, 255, 1);
+        color: #fff;
+      }
+    }
+
+    .afternoon {
+      color: hsla(125, 20%, 30%, 1);
+      &.clicked {
+        background-color: hsla(125, 20%, 30%, 1);
+        color: #fff;
+      }
+    }
+  }
+}
+

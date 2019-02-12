@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-body">
+      <h5 class="d-flex">
+          <div class="mr-auto p2">{{ tour.hour | momentPipe: {affichage: 'DD-MM-YYYY'} }}</div>
+          <div class="p2">{{ tour.hour | momentPipe: {affichage: 'HH:mm'} }}</div>
+      </h5>
+      <div class="card-title">
+        Réservation pour : {{ tour.hour | momentPipe: {affichage: 'HH:mm'} }}
+      </div>
+  </div>
+</div>
