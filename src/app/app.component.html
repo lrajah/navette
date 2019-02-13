@@ -15,12 +15,19 @@
            [appResaAuto]="tournee"
           [ngClass]="{'alert': true, 'alert-success': true, 'morning': tournee.am, 'afternoon': !tournee.am, 'clicked': tournee.isClicked}"
           (click)="doResa(tournee)">
-            {{ tournee.hour | momentPipe: {affichage: 'HH'} }}
+            <div class="d-flex">
+              <div class="mr-auto p2">
+                Départ de {{ tournee.hour | momentPipe: {affichage: 'HH:mm'} }}h
+              </div>
+              <div class="p2">
+                Disponibilités : <span class="badge">{{ tournee.dispo }}</span>
+              </div>
+            </div>
       </div>
       </li>
     </ul>
 
-    <app-my-component [tour]="selectedTour" [hidden]="doIShowIt"></app-my-component>
+    <app-my-component (receiveUpdate)="receiveUpdate($event)" [tour]="selectedTour" [hidden]="doIShowIt"></app-my-component>
 
     <router-outlet></router-outlet>
   </main>

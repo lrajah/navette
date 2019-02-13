@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { TourneeInterface } from './../../shared/interfaces/tournee';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-my-component',
@@ -8,6 +9,7 @@ import { TourneeInterface } from './../../shared/interfaces/tournee';
 })
 export class MyComponentComponent implements OnInit {
   @Input() tour: TourneeInterface ;
+  @Output() tourEvent: EventEmitter = new EventEmitter();
 
   constructor() { }
 

@@ -7,6 +7,9 @@ import { MyComponentComponent } from './components/my-component/my-component.com
 import { MomentPipe } from './shared/pipes/moment-pipe.pipe';
 import { ResaAutoDirective } from './shared/directives/resa-auto.directive';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     ResaAutoDirective,
@@ -16,6 +19,14 @@ import { ResaAutoDirective } from './shared/directives/resa-auto.directive';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(
+      {
+        timeOut: 3000,
+        positionClass: 'toast-bottom-right',
+        preventDuplicates: true
+      }
+    ),
     AppRoutingModule
   ],
   providers: [],

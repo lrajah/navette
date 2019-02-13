@@ -1,5 +1,6 @@
 import { TourneeInterface } from './shared/interfaces/tournee';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 
 @Component({
@@ -20,14 +21,13 @@ export class AppComponent implements OnInit {
   // La tournée sélectionnée par l'utilisateur
   public selectedTour: TourneeInterface;
 
-  public constructor() {
+  public constructor(private toastr: ToastrService) {
     console.log('Constructeur de AppComponent !');
     this.tournees = new Array<TourneeInterface>();
     this.selectedTour = {};
   }
 
   public ngOnInit() {
-    console.log('Initialisation de AppComponent');
 
     this.tournees.push(
       {
@@ -64,25 +64,42 @@ export class AppComponent implements OnInit {
   }
 
   public doResa(tournee: TourneeInterface): void {
-    console.log('On veut réserver pour la tournée de ' + tournee.hour);
-    // La tournée est-elle déjà sélectionnée ?
-    if (!tournee.isClicked) {
-      // On voudrait pouvoir la sélectionner...
-      // Mais y en-a-t-il déjà une dans ce cas ?
-      if (!this._checkFor()) {
+    if (this._canDoResa(tournee)) {
+      // La tournée est-elle déjà sélectionnée ?
+      if (!tournee.isClicked) {
+        // On voudrait pouvoir la sélectionner...
+        // Mais y en-a-t-il déjà une dans ce cas ?
+        if (!this._checkFor()) {
+          tournee.isClicked = !tournee.isClicked;
+          this.doIShowIt = false;
+          this.selectedTour = tournee;
+        }
+      } else {
         tournee.isClicked = !tournee.isClicked;
-        this.doIShowIt = false;
-        this.selectedTour = tournee;
+        this.doIShowIt = true;
       }
     } else {
-      tournee.isClicked = !tournee.isClicked;
-      this.doIShowIt = true;
+      // Afficher un toast pour avertir l'utilisateur...
+      console.log('Désolé, mais on ne peut pas réserver');
+      this.toastr.error(
+        'Désolé, mais la réservation n\'est pas autorisée pour cette tournée.',
+        'Erreur'
+        );
     }
+  }
+
+  public receiveUpdate($event): void {
+    console.log('Mise à jour côté myComponent');
   }
 
   private _checkFor(): boolean {
     return this.tournees.filter(
       (tournee) => tournee.isClicked
     ).length ? true : false;
+  }
+
+  private _canDoResa(tournee): boolean {
+    const now: moment.Moment = moment();
+    return !(tournee.dispo === 0 || tournee.hour.isBefore(now, 'minute'));
   }
 }

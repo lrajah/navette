@@ -3,6 +3,19 @@ ul {
 
   li {
     cursor: pointer;
+    div {
+      .badge {
+        background-color: rgba(128, 128, 128, .7);
+        color: #fff;
+        padding: 0.5em 1.5em ;
+        border-radius: 0.75em;
+      }
+      &.alert {
+        &.disabled {
+          cursor: not-allowed;
+        }
+      }
+    }
     .morning {
       color: rgba(127, 128, 255, 1);
       &.clicked {
