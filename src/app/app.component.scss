@@ -11,6 +11,9 @@ ul {
         border-radius: 0.75em;
       }
       &.alert {
+        i[class^="icon-"] {
+          font-size: 2em;
+        }
         &.disabled {
           cursor: not-allowed;
         }

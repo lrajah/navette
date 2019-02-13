@@ -17,17 +17,17 @@
           (click)="doResa(tournee)">
             <div class="d-flex">
               <div class="mr-auto p2">
-                Départ de {{ tournee.hour | momentPipe: {affichage: 'HH:mm'} }}h
+                <i class="icon-clock"></i> {{ tournee.hour | momentPipe: {affichage: 'HH:mm'} }}h
               </div>
               <div class="p2">
-                Disponibilités : <span class="badge">{{ tournee.dispo }}</span>
+                <i class="icon-users"></i><span class="badge">{{ tournee.dispo }}</span>
               </div>
             </div>
       </div>
       </li>
     </ul>
 
-    <app-my-component (receiveUpdate)="receiveUpdate($event)" [tour]="selectedTour" [hidden]="doIShowIt"></app-my-component>
+    <app-my-component (tourEvent)="receiveUpdate($event)" [tour]="selectedTour" [hidden]="doIShowIt"></app-my-component>
 
     <router-outlet></router-outlet>
   </main>

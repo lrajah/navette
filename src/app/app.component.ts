@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
   // La tournée sélectionnée par l'utilisateur
   public selectedTour: TourneeInterface;
 
+  private dispoBefore: number;
+
   public constructor(private toastr: ToastrService) {
     console.log('Constructeur de AppComponent !');
     this.tournees = new Array<TourneeInterface>();
@@ -50,7 +52,7 @@ export class AppComponent implements OnInit {
         hour: this.now.clone().hour(14).minute(0),
         am: false,
         isClicked: false,
-        dispo: 8
+        dispo: 5
       }
     );
     this.tournees.push(
@@ -58,7 +60,7 @@ export class AppComponent implements OnInit {
         hour: this.now.clone().hour(17).minute(0),
         am: false,
         isClicked: false,
-        dispo: 0
+        dispo: 8
       }
     );
   }
@@ -73,6 +75,7 @@ export class AppComponent implements OnInit {
           tournee.isClicked = !tournee.isClicked;
           this.doIShowIt = false;
           this.selectedTour = tournee;
+          this.dispoBefore = tournee.dispo;
         }
       } else {
         tournee.isClicked = !tournee.isClicked;
@@ -82,14 +85,22 @@ export class AppComponent implements OnInit {
       // Afficher un toast pour avertir l'utilisateur...
       console.log('Désolé, mais on ne peut pas réserver');
       this.toastr.error(
-        'Désolé, mais la réservation n\'est pas autorisée pour cette tournée.',
+        'Désolé, mais la réservation n\'est pas autorisée pour la tournée de ' + tournee.hour.format('HH:mm'),
         'Erreur'
         );
     }
   }
 
   public receiveUpdate($event): void {
-    console.log('Mise à jour côté myComponent');
+    this.doIShowIt = true;
+    $event.isClicked = false;
+    const places: number = this.dispoBefore - $event.dispo;
+    // Un petit toast pour la route ?
+    this.toastr.success(
+      'Votre réservation de ' + places + ' places a bien été prise en compte.',
+      'Merci'
+    );
+    // TODO : persister la réservation...
   }
 
   private _checkFor(): boolean {
