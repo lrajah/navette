@@ -17,9 +17,11 @@ export class ResaAutoDirective implements OnInit {
     const today: moment.Moment = moment();
     if (this.tournee.hour.isBefore(today, 'minutes')) {
       this.render.setStyle(this.element.nativeElement, 'background-color', this.backgroundColor);
+      this.render.addClass(this.element.nativeElement, 'disabled');
     } else {
       if (this.tournee.dispo === 0) {
         this.render.setStyle(this.element.nativeElement, 'background-color', this.backgroundColor);
+        this.render.addClass(this.element.nativeElement, 'disabled');
       }
     }
   }
