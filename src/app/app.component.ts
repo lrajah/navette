@@ -2,6 +2,7 @@ import { TourneeInterface } from './shared/interfaces/tournee';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
+import { ResaModel } from './shared/models/resa-model';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,10 @@ export class AppComponent implements OnInit {
 
   private dispoBefore: number;
 
-  public constructor(private toastr: ToastrService) {
+  public constructor(
+    private toastr: ToastrService,
+    private resaModel: ResaModel
+  ) {
     console.log('Constructeur de AppComponent !');
     this.tournees = new Array<TourneeInterface>();
     this.selectedTour = {};
@@ -101,6 +105,12 @@ export class AppComponent implements OnInit {
       'Merci'
     );
     // TODO : persister la réservation...
+    this.resaModel
+      .setDateResa(moment())
+      .setTourDate(this.selectedTour.hour)
+      .setPlaces(places)
+      .add();
+
   }
 
   private _checkFor(): boolean {
