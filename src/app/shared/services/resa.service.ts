@@ -1,75 +1,42 @@
 import { ResaModel } from './../models/resa-model';
-import { Injectable } from '@angular/core';
-import { ResaInterface } from '../interfaces/resa';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class ResaService {
   private resas: Array<ResaModel>;
 
-  constructor() {}
-
-  public addResa(resa: ResaModel): void {
-    if (!this.resas) {
-      this.resas = new Array<ResaModel>();
-    }
-    this.resas.push(resa);
-    this._persist();
+  constructor() {
+    console.log('Service done');
   }
 
-  public updateResa(resa: ResaModel) {
-    /*
-    const indice: number = this.resas.findIndex((obj) => {
-      return obj.dateResa === resa.dateResa
-    });
-    this.resas[indice] = resa;
-    */
-
-    this.resas[this.resas.indexOf(resa)] = resa;
-    this._persist();
-  }
-
-  public removeResa(resa: ResaModel) {
-    this.resas.splice(this.resas.indexOf(resa), 1);
-    this._persist();
-  }
-
-  public getAll(): Promise<Array<ResaModel>> | Array<ResaModel> {
+  public getAll(): Promise<Array<ResaModel>> {
     if (this.resas) {
-      return this.resas;
+      console.log('resaservice::getAll::resas already loaded');
+      return new Promise((resolve) => {
+        resolve(this.resas);
+      });
+    } else {
+      console.log('resaservice::getAll::load resas');
+      return this._getAll();
     }
-
-    return new Promise((resolve) => {
-      // Faudrait aller lire la base de données
-      this._getAll();
-      resolve(this.resas);
-    });
   }
 
-  private _persist() {
+  public persist(resas: Array<ResaModel>) {
     localStorage.setItem(
       'resas',
       JSON.stringify(
-        this.resas.map(
-          (obj: ResaModel) => {
-            return {
-              dateResa: obj.getDateResa(),
-              tourDate: obj.getTourDate(),
-              places: obj.getPlaces()
-            };
-          }
-        )
+        resas
       )
     );
   }
 
-  private _getAll(): void {
-    const jsonData = localStorage.getItem('resas');
-    if (jsonData) {
-      this.resas = JSON.parse(jsonData);
-    } else {
-      this.resas = new Array<ResaModel>();
-    }
+  private _getAll(): Promise<Array<ResaModel>> {
+    return new Promise((resolve) => {
+      let resas = new Array<ResaModel>();
+      const jsonData = localStorage.getItem('resas');
+      if (jsonData) {
+        resas = JSON.parse(jsonData);
+      }
+      resolve(resas);
+    });
+
   }
 }

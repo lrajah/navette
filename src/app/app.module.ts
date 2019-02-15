@@ -10,7 +10,6 @@ import { ResaAutoDirective } from './shared/directives/resa-auto.directive';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { ResaModel } from './shared/models/resa-model';
 
 @NgModule({
   declarations: [
@@ -31,7 +30,7 @@ import { ResaModel } from './shared/models/resa-model';
     ),
     AppRoutingModule
   ],
-  providers: [ResaModel, ResaService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

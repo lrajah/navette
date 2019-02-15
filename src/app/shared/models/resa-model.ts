@@ -1,10 +1,9 @@
-import { ResaInterface } from '../interfaces/resa';
 import * as moment from 'moment';
-import { ResaService } from '../services/resa.service';
-import { Injectable } from '@angular/core';
+import { DaoResa } from './dao-resa';
 
-@Injectable()
-export class ResaModel implements ResaInterface {
+export class ResaModel {
+  private id?: number;
+
   /**
    * Date de la réservation par l'utilisateur
    * @var moment.Moment
@@ -24,7 +23,11 @@ export class ResaModel implements ResaInterface {
    */
   private places: number;
 
-  public constructor(private resaService: ResaService) {}
+  public constructor() {}
+
+  public getId(): number {
+    return this.id;
+  }
 
   public setDateResa(date: moment.Moment): ResaModel {
     this.dateResa = date;
@@ -51,17 +54,5 @@ export class ResaModel implements ResaInterface {
 
   public getPlaces(): number {
     return this.places;
-  }
-
-  public add(): void {
-    this.resaService.addResa(this);
-  }
-
-  public update(): void {
-    this.resaService.updateResa(this);
-  }
-
-  public remove(): void {
-    this.resaService.removeResa(this);
   }
 }

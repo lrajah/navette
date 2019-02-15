@@ -1,3 +1,4 @@
+import { DaoResa } from './shared/models/dao-resa';
 import { TourneeInterface } from './shared/interfaces/tournee';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
@@ -25,8 +26,7 @@ export class AppComponent implements OnInit {
   private dispoBefore: number;
 
   public constructor(
-    private toastr: ToastrService,
-    private resaModel: ResaModel
+    private toastr: ToastrService
   ) {
     console.log('Constructeur de AppComponent !');
     this.tournees = new Array<TourneeInterface>();
@@ -105,12 +105,13 @@ export class AppComponent implements OnInit {
       'Merci'
     );
     // TODO : persister la réservation...
-    this.resaModel
+    const resa: ResaModel = new ResaModel()
       .setDateResa(moment())
       .setTourDate(this.selectedTour.hour)
-      .setPlaces(places)
-      .add();
-
+      .setPlaces(places);
+    // Persistence
+    const dao: DaoResa = new DaoResa(resa);
+    dao.add();
   }
 
   private _checkFor(): boolean {
