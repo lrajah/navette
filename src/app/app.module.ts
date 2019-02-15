@@ -1,8 +1,11 @@
+
 import { ResaService } from './shared/services/resa.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+import { IhmModule } from './ihm/ihm.module';
+
 import { AppComponent } from './app.component';
 import { MyComponentComponent } from './components/my-component/my-component.component';
 import { MomentPipe } from './shared/pipes/moment-pipe.pipe';
@@ -30,6 +33,7 @@ import { MyResaComponent } from './components/my-resa/my-resa.component';
         preventDuplicates: true
       }
     ),
+    IhmModule,
     AppRoutingModule
   ],
   providers: [],
