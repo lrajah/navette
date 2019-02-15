@@ -1,5 +1,5 @@
 import { ResaModel } from './../models/resa-model';
-
+import * as moment from 'moment';
 export class ResaService {
   private resas: Array<ResaModel>;
 
@@ -33,7 +33,11 @@ export class ResaService {
       let resas = new Array<ResaModel>();
       const jsonData = localStorage.getItem('resas');
       if (jsonData) {
-        resas = JSON.parse(jsonData);
+        resas = JSON.parse(jsonData).map((resa: any) => {
+          const theResa: ResaModel =  new ResaModel();
+          return theResa.deserialize(resa);
+        });
+        this.resas = resas;
       }
       resolve(resas);
     });
