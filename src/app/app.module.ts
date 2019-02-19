@@ -1,8 +1,8 @@
 
 import { ResaService } from './shared/services/resa.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { NgModule, LOCALE_ID } from '@angular/core';
+import localFr from '@angular/common/locales/fr';
 import { AppRoutingModule } from './app-routing.module';
 import { IhmModule } from './shared/modules/ihm/ihm.module';
 
@@ -39,7 +39,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     IhmModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+      {
+        provide: LOCALE_ID,
+        useValue: 'fr'
+      }
+  ],
+  entryComponents: [
+    PaymentDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,42 +1,32 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container-fluid">
-  <header>
-    <h1>
-      {{ title }}
-    </h1>
-    <h2>{{now | momentPipe: {affichage: 'DD-MM-YYYY'} }}</h2>
-  </header>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>reorder</mat-icon>
+          </button>
 
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['']">
+              <mat-icon>flight_takeoff</mat-icon>
+              <span>Tournées</span>
+            </button>
+            <button mat-menu-item [routerLink]="['resas']">
+              <mat-icon>list</mat-icon>
+              <span>Mes réservations</span>
+            </button>
+          </mat-menu>
+          <span class="spacer"></span>
+
+          <span>Navette Ste - Stex</span>
+    </mat-toolbar-row>
+
+
+
+  </mat-toolbar>
   <main>
-    <!-- Afficher les tournées du jour -->
-    <ul class="list list-unstyled">
-      <li *ngFor="let tournee of tournees">
-        <div
-           [appResaAuto]="tournee"
-          [ngClass]="{'alert': true, 'alert-success': true, 'morning': tournee.am, 'afternoon': !tournee.am, 'clicked': tournee.isClicked}"
-          (click)="doResa(tournee)">
-            <div class="d-flex">
-              <div class="mr-auto p2">
-                <i class="icon-clock"></i> {{ tournee.hour | momentPipe: {affichage: 'HH:mm'} }}h
-              </div>
-              <div class="p2">
-                <i class="icon-users"></i><span class="badge">{{ tournee.dispo }}</span>
-              </div>
-            </div>
-      </div>
-      </li>
-    </ul>
-
-    <app-my-component (tourEvent)="receiveUpdate($event)" [tour]="selectedTour" [hidden]="doIShowIt"></app-my-component>
-
-    <app-payment-form></app-payment-form>
-
-    <app-my-resa></app-my-resa>
-
     <router-outlet></router-outlet>
   </main>
-
-  {{ tournees | json }}
 
 </div>
 

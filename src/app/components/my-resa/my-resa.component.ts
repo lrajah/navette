@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ResaService } from 'src/app/shared/services/resa.service';
-import { ResaModel } from 'src/app/shared/models/resa-model';
-
-import * as moment from 'moment';
-import { ResaSharingService } from 'src/app/shared/services/resa-sharing.service';
+import { ResaService } from './../../shared/services/resa.service';
+import { ResaModel } from './../../shared/models/resa-model';
 
 @Component({
   selector: 'app-my-resa',
@@ -11,24 +8,18 @@ import { ResaSharingService } from 'src/app/shared/services/resa-sharing.service
   styleUrls: ['./my-resa.component.scss']
 })
 export class MyResaComponent implements OnInit {
-  private resaService: ResaService;
+  private resaService: ResaService = new ResaService();
+  public progress: boolean = true;
   public resas: Array<ResaModel>;
 
-  constructor(private resaShareService: ResaSharingService) {
-    this.resaService = new ResaService();
-  }
+  constructor() { }
 
   ngOnInit() {
     this.resaService.getAll().then((resas) => {
+      console.log('Resas : ' + JSON.stringify(resas));
+      this.progress = false;
       this.resas = resas;
     });
-
-    // Observer les messages venant du service
-    this.resaShareService.resaShare.subscribe((resa: ResaModel) => {
-      console.log('Une nouvelle réservation vient d\'arriver !');
-      if (resa !== null) {
-        this.resas.push(resa);
-      }
-    });
   }
+
 }
