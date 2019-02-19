@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TourneeInterface } from './../../shared/interfaces/tournee';
 
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-my-component',
@@ -9,7 +10,7 @@ import { TourneeInterface } from './../../shared/interfaces/tournee';
 })
 export class MyComponentComponent implements OnInit {
   @Input() tour: TourneeInterface ;
-  @Output() tourEvent: EventEmitter<TourneeInterface> = new EventEmitter<TourneeInterface>();
+  @Output() places: EventEmitter<any> = new EventEmitter<any>();
 
   // tslint:disable-next-line:no-inferrable-types
   public nbPlaces: number = 1;
@@ -19,9 +20,14 @@ export class MyComponentComponent implements OnInit {
   // tslint:disable-next-line:no-inferrable-types
   public isMaxi: boolean = false;
 
+  // tslint:disable-next-line:no-inferrable-types
+  public isPast: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
+    const today: moment.Moment = moment();
+    this.isPast = this.tour.hour.isBefore(today, 'minute');
   }
 
   public increment(): void {
@@ -32,6 +38,8 @@ export class MyComponentComponent implements OnInit {
     if (this.nbPlaces === this.tour.dispo) {
       this.isMaxi = true;
     }
+
+    this.sendIt();
   }
 
   public decrement(): void {
@@ -42,11 +50,16 @@ export class MyComponentComponent implements OnInit {
     if (this.nbPlaces === 1) {
       this.isMini = true;
     }
+
+    this.sendIt();
   }
 
-  public sendIt(): void {
-    this.tour.dispo = this.tour.dispo - this.nbPlaces;
-    this.tourEvent.emit(this.tour);
-    this.nbPlaces = 1;
+  private sendIt(): void {
+    this.places.emit(
+      {
+        tour: this.tour,
+        places: this.nbPlaces
+      }
+    );
   }
 }

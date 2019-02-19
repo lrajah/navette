@@ -1,8 +1,9 @@
 import { ResaService } from './shared/services/resa.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { NgModule, LOCALE_ID } from '@angular/core';
+import localFr from '@angular/common/locales/fr';
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MyComponentComponent } from './components/my-component/my-component.component';
 import { MomentPipe } from './shared/pipes/moment-pipe.pipe';
@@ -11,6 +12,9 @@ import { ResaAutoDirective } from './shared/directives/resa-auto.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { TourListComponent } from './components/tour-list/tour-list.component';
+import { IhmModule } from './shared/ihm/ihm/ihm.module';
+import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
+import { GetValuesPipe } from './shared/pipes/get-values.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,9 @@ import { TourListComponent } from './components/tour-list/tour-list.component';
     AppComponent,
     MyComponentComponent,
     MomentPipe,
-    TourListComponent
+    TourListComponent,
+    PaymentDialogComponent,
+    GetValuesPipe
   ],
   imports: [
     BrowserModule,
@@ -30,9 +36,19 @@ import { TourListComponent } from './components/tour-list/tour-list.component';
         preventDuplicates: true
       }
     ),
+    ReactiveFormsModule,
+    IhmModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+      {
+        provide: LOCALE_ID,
+        useValue: 'fr'
+      }
+  ],
+  entryComponents: [
+    PaymentDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

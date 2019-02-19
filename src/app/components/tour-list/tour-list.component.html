@@ -1,1 +1,23 @@
+<mat-progress-spinner *ngIf="progress"></mat-progress-spinner>
 
+<div class="card"
+  *ngFor="let tour of tournees"
+  color="primary"
+>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-2">
+        <span class="badge badge-secondary">
+            {{ tour.hour | momentPipe: 'HH:mm'}}
+        </span>
+      </div>
+      <div class="col-7">
+        <app-my-component [tour]="tour" (places)="receivePlaces($event)"></app-my-component>
+      </div>
+      <div class="col-3">
+          <button mat-raised-button (click)="openPaymentDialog(tour)" [disabled]="isDisabled(tour)" color="primary">Réserver</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{ tournees | json }}

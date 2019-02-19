@@ -1,38 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container-fluid">
-  <header>
-    <h1>
-      {{ title }}
-    </h1>
-    <h2>{{now | momentPipe: {affichage: 'DD-MM-YYYY'} }}</h2>
-  </header>
 
   <main>
-    <!-- Afficher les tournées du jour -->
-    <ul class="list list-unstyled">
-      <li *ngFor="let tournee of tournees">
-        <div
-           [appResaAuto]="tournee"
-          [ngClass]="{'alert': true, 'alert-success': true, 'morning': tournee.am, 'afternoon': !tournee.am, 'clicked': tournee.isClicked}"
-          (click)="doResa(tournee)">
-            <div class="d-flex">
-              <div class="mr-auto p2">
-                <i class="icon-clock"></i> {{ tournee.hour | momentPipe: {affichage: 'HH:mm'} }}h
-              </div>
-              <div class="p2">
-                <i class="icon-users"></i><span class="badge">{{ tournee.dispo }}</span>
-              </div>
-            </div>
-      </div>
-      </li>
-    </ul>
-
-    <app-my-component (tourEvent)="receiveUpdate($event)" [tour]="selectedTour" [hidden]="doIShowIt"></app-my-component>
-
     <router-outlet></router-outlet>
   </main>
-
-  {{ tournees | json }}
 
 </div>
 
