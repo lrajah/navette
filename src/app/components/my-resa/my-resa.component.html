@@ -1,0 +1,21 @@
+<mat-progress-spinner *ngIf="progress"></mat-progress-spinner>
+
+<h3>Mes réservations</h3>
+
+<table class="table table-responsive table-striped">
+  <thead>
+    <tr>
+      <th>Date de réservation</th>
+      <th>Tournée</th>
+      <th>Places</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let resa of resas">
+      <td>{{ resa.getDateResa() | momentPipe: 'DD-MM-YYYY' }}</td>
+      <td>{{ resa.getTourDate() | momentPipe: 'HH:mm' }}</td>
+      <td>{{ resa.getPlaces() }}</td>
+    </tr>
+  </tbody>

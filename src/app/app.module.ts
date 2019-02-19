@@ -15,6 +15,7 @@ import { TourListComponent } from './components/tour-list/tour-list.component';
 import { IhmModule } from './shared/ihm/ihm/ihm.module';
 import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
 import { GetValuesPipe } from './shared/pipes/get-values.pipe';
+import { MyResaComponent } from './components/my-resa/my-resa.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { GetValuesPipe } from './shared/pipes/get-values.pipe';
     MomentPipe,
     TourListComponent,
     PaymentDialogComponent,
-    GetValuesPipe
+    GetValuesPipe,
+    MyResaComponent
   ],
   imports: [
     BrowserModule,

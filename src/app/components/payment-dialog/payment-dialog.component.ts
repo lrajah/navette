@@ -30,6 +30,13 @@ export class PaymentDialogComponent implements OnInit {
   public get cardNumber(): AbstractControl {
     return this.paymentForm.controls.cardNumber;
   }
+  public get crypto(): AbstractControl {
+    return this.paymentForm.controls.crypto;
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
   ngOnInit() {
     if ( !this.tour.hasOwnProperty('resa')) {
@@ -66,6 +73,24 @@ export class PaymentDialogComponent implements OnInit {
         {
           type: 'maxLength',
           message: 'Votre numéro de carte ne peut avoir plus de 16 caractères'
+        },
+        {
+          type: 'pattern',
+          message: 'Votre numéro de carte ne peut contenir que des chiffres'
+        }
+      ],
+      crypto: [
+        {
+          type: 'maxLength',
+          message: 'Le cryptogramme ne peut avoir plus de 3 caractères'
+        },
+        {
+          type: 'minLength',
+          message: 'Le cryptogramme ne peut avoir moins de 3 caractères'
+        },
+        {
+          type: 'pattern',
+          message: 'Le cryptogramme ne peut contenir que des chiffres'
         }
       ]
     };
@@ -77,7 +102,7 @@ export class PaymentDialogComponent implements OnInit {
           Validators.required,
           Validators.minLength(16),
           Validators.maxLength(16),
-          Validators.pattern()
+          Validators.pattern('[0-9]*$')
         ])
       ],
       month: [
@@ -92,7 +117,7 @@ export class PaymentDialogComponent implements OnInit {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(3),
-          Validators.pattern()
+          Validators.pattern('[0-9]*$')
         ])
       ]
     });

@@ -16,20 +16,24 @@ export class TourneesService {
 
       tournees.push(
           {
-          hour: today.clone().hour(8).minute(0).second(0),
-          dispo: 8
+            hour: today.clone().hour(8).minute(0).second(0),
+            dispo: 8,
+            resa: 1
           },
           {
             hour: today.clone().hour(11).minute(0).second(0),
-            dispo: 8
+            dispo: 8,
+            resa: 1
           },
           {
             hour: today.clone().hour(14).minute(0).second(0),
-            dispo: 8
+            dispo: 8,
+            resa: 1
           },
           {
             hour: today.clone().hour(17).minute(0).second(0),
-            dispo: 8
+            dispo: 8,
+            resa: 1
           },
         );
 

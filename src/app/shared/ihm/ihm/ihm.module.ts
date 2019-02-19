@@ -5,7 +5,11 @@ import {
   MatDialogModule,
   MatButtonModule,
   MatInputModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSnackBarModule,
+  MatToolbarModule,
+  MatMenuModule,
+  MatIconModule
 } from '@angular/material';
 
 @NgModule({
@@ -16,14 +20,22 @@ import {
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatIconModule
   ],
   exports: [
     MatProgressSpinnerModule,
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatIconModule
   ]
 })
 export class IhmModule { }

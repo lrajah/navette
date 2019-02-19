@@ -55,4 +55,13 @@ export class ResaModel {
   public getPlaces(): number {
     return this.places;
   }
+
+  public deserialize(datas: any): ResaModel {
+
+    this.dateResa = moment(datas.dateResa);
+    this.tourDate = moment(datas.tourDate);
+    this.places = datas.places;
+
+    return this;
+  }
 }

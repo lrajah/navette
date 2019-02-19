@@ -30,12 +30,14 @@ export class ResaService {
 
   private _getAll(): Promise<Array<ResaModel>> {
     return new Promise((resolve) => {
-      let resas = new Array<ResaModel>();
+      this.resas = new Array<ResaModel>();
       const jsonData = localStorage.getItem('resas');
       if (jsonData) {
-        resas = JSON.parse(jsonData);
+        this.resas = JSON.parse(jsonData).map((resa: any) => {
+          return (new ResaModel()).deserialize(resa);
+        });
       }
-      resolve(resas);
+      resolve(this.resas);
     });
 
   }
