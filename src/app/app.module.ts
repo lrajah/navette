@@ -10,13 +10,15 @@ import { ResaAutoDirective } from './shared/directives/resa-auto.directive';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { TourListComponent } from './components/tour-list/tour-list.component';
 
 @NgModule({
   declarations: [
     ResaAutoDirective,
     AppComponent,
     MyComponentComponent,
-    MomentPipe
+    MomentPipe,
+    TourListComponent
   ],
   imports: [
     BrowserModule,
