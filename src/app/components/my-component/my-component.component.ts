@@ -2,7 +2,6 @@ import { ResaSharingService } from 'src/app/shared/services/resa-sharing.service
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TourneeInterface } from './../../shared/interfaces/tournee';
 import { ResaModel } from 'src/app/shared/models/resa-model';
-import * as moment from 'moment';
 
 import * as moment from 'moment';
 

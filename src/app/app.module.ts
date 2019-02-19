@@ -1,13 +1,15 @@
 
+
 import { ResaService } from './shared/services/resa.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import localFr from '@angular/common/locales/fr';
 import { AppRoutingModule } from './app-routing.module';
-import { IhmModule } from './shared/modules/ihm/ihm.module';
+import { IhmModule } from './shared/ihm/ihm/ihm.module';
 
 import { AppComponent } from './app.component';
 import { MyComponentComponent } from './components/my-component/my-component.component';
+import { TourListComponent } from './components/tour-list/tour-list.component';
 import { MomentPipe } from './shared/pipes/moment-pipe.pipe';
 import { ResaAutoDirective } from './shared/directives/resa-auto.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,7 +24,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     MyComponentComponent,
     MomentPipe,
-    MyResaComponent
+    MyResaComponent,
+    TourListComponent,
+    PaymentDialogComponent
   ],
   imports: [
     BrowserModule,
