@@ -24,6 +24,7 @@
     "bf-icomoon": "^1.0.0",
     "bootstrap": "^4.2.1",
     "core-js": "^2.5.4",
+    "material-design-icons": "^3.0.1",
     "moment": "^2.24.0",
     "ngx-toastr": "^9.1.2",
     "rxjs": "~6.3.3",

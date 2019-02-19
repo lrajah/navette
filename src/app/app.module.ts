@@ -4,16 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { IhmModule } from './ihm/ihm.module';
+import { IhmModule } from './shared/modules/ihm/ihm.module';
 
 import { AppComponent } from './app.component';
 import { MyComponentComponent } from './components/my-component/my-component.component';
 import { MomentPipe } from './shared/pipes/moment-pipe.pipe';
 import { ResaAutoDirective } from './shared/directives/resa-auto.directive';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { MyResaComponent } from './components/my-resa/my-resa.component';
+import { PaymentFormComponent } from './components/payment-form/payment-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MyResaComponent } from './components/my-resa/my-resa.component';
     AppComponent,
     MyComponentComponent,
     MomentPipe,
-    MyResaComponent
+    MyResaComponent,
+    PaymentFormComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,7 @@ import { MyResaComponent } from './components/my-resa/my-resa.component';
         preventDuplicates: true
       }
     ),
+    ReactiveFormsModule,
     IhmModule,
     AppRoutingModule
   ],
