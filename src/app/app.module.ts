@@ -13,7 +13,7 @@ import { ResaAutoDirective } from './shared/directives/resa-auto.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { MyResaComponent } from './components/my-resa/my-resa.component';
-import { PaymentFormComponent } from './components/payment-form/payment-form.component';
+import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -22,8 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     MyComponentComponent,
     MomentPipe,
-    MyResaComponent,
-    PaymentFormComponent
+    MyResaComponent
   ],
   imports: [
     BrowserModule,
