@@ -1,3 +1,4 @@
+import { DaoResa } from './../../shared/models/dao-resa';
 import { ResaModel } from './../../shared/models/resa-model';
 
 import { TourneesService } from './../../shared/services/tournees.service';
@@ -54,11 +55,8 @@ export class TourListComponent implements OnInit {
           .setDateResa(moment())
           .setPlaces(tour.resa)
           .setTourDate(tour.hour);
-        const resaService: ResaService = new ResaService();
-        resaService.getAll().then((resas) => {
-          resas.push(resa);
-          resaService.persist(resas);
-        });
+        const daoResa: DaoResa = new DaoResa(resa);
+        daoResa.add();
 
         this.tournees[this.tournees.indexOf(tour)].dispo = this.tournees[this.tournees.indexOf(tour)].dispo - tour.resa;
         this.tournees[this.tournees.indexOf(tour)].resa = 1;
