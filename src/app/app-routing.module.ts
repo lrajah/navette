@@ -1,23 +1,46 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TourListComponent } from './components/tour-list/tour-list.component';
-import { MyResaComponent } from './components/my-resa/my-resa.component';
+import { MyTasksByProjectComponent } from './components/my-tasks-by-project/my-tasks-by-project.component';
+import { LoginComponent } from './login/login/login.component';
+import { HomeComponent } from './home/home/home.component';
+import { AuthGuard } from './_guards/auth.service';
+import { RegisterComponent } from './register/register/register.component';
 
 const routes: Routes = [
   {
-    path: 'tours',
-    component: TourListComponent,
-    data: { title: 'Tournées du jour' }
+    path: 'mytasks',
+    component: HomeComponent,
+    canActivate: [AuthGuard] ,
+    data: { title: 'Mes tâches' }
   },
   {
-    path: 'resas',
-    component: MyResaComponent,
-    data: { title: 'Mes réservations' }
+    path: 'myprojects',
+    component: MyTasksByProjectComponent,
+    canActivate: [AuthGuard] ,
+    data: { title: 'Mes Projets' }
   },
-  { path: '',
-    redirectTo: '/tours',
-    pathMatch: 'full'
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { title: 'Login' }
   },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    data: { title: 'Login' }
+  },
+
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '' }
+  // {
+  //   path: 'resas',
+  //   component: MyResaComponent,
+  //   data: { title: 'Mes réservations' }
+  // },
+  // { path: '',
+  //   redirectTo: '/mytasks',
+  //   pathMatch: 'full'
+  // },
 ];
 
 @NgModule({

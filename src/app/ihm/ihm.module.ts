@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MatCardModule
+  MatCardModule, MatSelect, MatSelectModule
  } from '@angular/material';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule
   ],
   exports: [
-    MatCardModule
+    MatCardModule,
+    MatSelectModule
   ]
 })
 export class IhmModule { }

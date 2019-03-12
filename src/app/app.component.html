@@ -2,31 +2,40 @@
 <div class="container-fluid">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>reorder</mat-icon>
-          </button>
+      <button mat-icon-button (click)="drawer.toggle()" *ngIf=currentUser>
+        <mat-icon>reorder</mat-icon>
+      </button>
 
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item [routerLink]="['']">
-              <mat-icon>flight_takeoff</mat-icon>
-              <span>Tournées</span>
-            </button>
-            <button mat-menu-item [routerLink]="['resas']">
-              <mat-icon>list</mat-icon>
-              <span>Mes réservations</span>
-            </button>
-          </mat-menu>
-          <span class="spacer"></span>
 
-          <span>Navette Ste - Stex</span>
+      <span class="spacer"></span>
+
+      <span>Todoist</span>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="logout()" *ngIf=currentUser>
+          <mat-icon>perm_identity</mat-icon>
+        </button>
     </mat-toolbar-row>
 
 
 
   </mat-toolbar>
   <main>
-    <router-outlet></router-outlet>
+    <mat-drawer-container class="example-container" hasBackdrop="false">
+      <mat-drawer #drawer mode="over">
+        <mat-list role="list">
+          <mat-list-item role="listitem" [routerLink]="['mytasks']">My tasks</mat-list-item>
+          <mat-list-item role="listitem"  [routerLink]="['myprojects']">My Projects</mat-list-item>
+          <mat-list-item role="listitem">Mon compte</mat-list-item>
+        </mat-list>
+      </mat-drawer>
+      <mat-drawer-content>
+        
+            <router-outlet></router-outlet>
+            <alert></alert>
+        
+          
+      </mat-drawer-content>
+    </mat-drawer-container>
   </main>
 
 </div>
-

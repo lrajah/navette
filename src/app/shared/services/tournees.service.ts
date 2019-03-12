@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { ResaService } from './resa.service';
 import { ResaModel } from '../models/resa-model';
+import { HttpClient } from '@angular/common/http';
+import { Observable, from } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +13,39 @@ import { ResaModel } from '../models/resa-model';
 export class TourneesService {
   private resaService: ResaService = new ResaService();
 
-  constructor() {
-   }
+  constructor(private httpClient: HttpClient) {
+  }
+  public getRemoteTournees(date?: moment.Moment): Observable<any> {
+    if (date) {
+
+      return this.httpClient.get<any[]>(environment.apiRoot + 'api/client/' + moment(date).format('YYYY-MM-DD'));
+
+    }
+    return this.httpClient.get<any[]>(environment.apiRoot + 'api/client/' + moment().format('YYYY-MM-DD'));
+
+  }
+  public chooseRemoteTournees(date: moment.Moment, nbPlace: number): Observable<any> {
+
+    return this.httpClient.get<any[]>(
+      environment.apiRoot + 'api/client/choose?date=' + moment(date)
+        .format('YYYY-MM-DD-HH-mm') + '&place=' + nbPlace, { observe: 'response' }
+    );
+  }
+  public reservRemoteTournees(reservation: any): Observable<any> {
+    const uri: string = environment.apiRoot + 'api/client/reservation/';
+    console.log('reser' + reservation);
+    return this.httpClient.post<any[]>(uri, reservation);
+
+
+  }
+  public confirmRemoteTournees(numResa: string): Observable<any> {
+    const uri: string = environment.apiRoot + 'api/client/reservation/confirm/' + numResa;
+    console.log('confirm' + numResa);
+    return this.httpClient.get<any[]>(uri);
+
+
+  }
+
 
   public getTournees(): Promise<Array<TourneeInterface>> {
     return new Promise((resolve) => {

@@ -1,5 +1,13 @@
 <mat-progress-spinner *ngIf="progress"></mat-progress-spinner>
-
+<div class="row">
+  <div class="col-sm-3">
+    <button mat-mini-fab color="primary" (click)="previousDay()" [disabled]="!showPrev">&lt;&lt;</button>
+  </div>
+  <h3 class="col-sm-6"> {{dayShowed | momentPipe: 'DD-MM-YYYY'}} </h3>
+  <div class="col-sm-3">
+    <button mat-mini-fab color="primary" (click)="nextDay()" >>></button>
+  </div>
+</div>
 <div class="card"
   *ngFor="let tour of tournees"
   color="primary"
@@ -15,7 +23,7 @@
         <app-my-component [tour]="tour" (places)="receivePlaces($event)"></app-my-component>
       </div>
       <div class="col-3">
-          <button mat-raised-button (click)="openPaymentDialog(tour)" [disabled]="isDisabled(tour)" color="primary">Réserver</button>
+          <button mat-raised-button (click)="apiCallChoose(tour)" [disabled]="isDisabled(tour)" color="primary">Réserver</button>
       </div>
     </div>
   </div>

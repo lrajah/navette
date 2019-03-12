@@ -1,0 +1,96 @@
+<div class="container">
+
+  <div>
+    <mat-card>
+        <mat-form-field>
+            <mat-label>Projects: </mat-label>
+            <mat-select #mode value="side">
+              <mat-option value="side"><h6>Project 1</h6></mat-option>
+              <mat-option value="over"><h6>Project 2</h6></mat-option>
+              <mat-option value="push"><h6>Project 3</h6></mat-option>
+            </mat-select>
+          </mat-form-field>
+    </mat-card>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Projet: LoopHoles
+          </mat-panel-title>
+          <mat-panel-description>
+            Faire l'interface graphique
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <div class="col-sm-9">
+            <mat-panel-description>
+              Date: 21/03/2019
+            </mat-panel-description>
+            <mat-panel-description>
+              Priorité: Low
+            </mat-panel-description>
+          </div>
+          <div class="col-sm-1">
+            <button mat-icon-button>
+              <mat-icon>create</mat-icon>
+            </button>
+          </div>
+          <div class="col-sm-1">
+            <button mat-icon-button>
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+          <div class="col-sm-1">
+            <button mat-icon-button>
+              <mat-icon>check</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Projet: LoopHoles
+          </mat-panel-title>
+          <mat-panel-description>
+            Faire l'ajout d'utilisateur
+            <!-- Currently I am {{panelOpenState ? 'open' : 'closed'}} -->
+          </mat-panel-description>
+
+        </mat-expansion-panel-header>
+
+        <div class="row">
+          <div class="col-sm-9">
+            <mat-panel-description>
+              Date: 21/03/2019
+            </mat-panel-description>
+            <mat-panel-description>
+              Priorité: Low
+            </mat-panel-description>
+          </div>
+          <div class="col-sm-1">
+            <button mat-icon-button>
+              <mat-icon>create</mat-icon>
+            </button>
+          </div>
+          <div class="col-sm-1">
+            <button mat-icon-button>
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+          <div class="col-sm-1">
+            <button mat-icon-button>
+              <mat-icon>check</mat-icon>
+            </button>
+          </div>
+        </div>
+
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+
+
+</div>
