@@ -7,6 +7,6 @@ export class TaskDto {
     priority: string;
     deadline: string;
     category: CategoryDto;
-    state:boolean;
+    state:number;
     users:UserDto;
 }

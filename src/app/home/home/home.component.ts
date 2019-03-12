@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   panelOpenState = false;
   user: UserDto;
   tasks: Array<TaskDto>;
+  finishedTasks:Array<TaskDto>;
   edit: boolean = false;
   editForm: FormGroup;
   loading = false;
@@ -84,11 +85,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  private loadAllUsers() {
-    // this.userService.getAll().pipe(first()).subscribe(users => {
-    //     this.users = users;
-    // });
-  }
   private loadLoggedUser() {
     this.userService.getLoggedUser().pipe(first()).subscribe(user => {
       this.user = user;
@@ -96,10 +92,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     });
   }
+  
   private loadUserTasks() {
     this.userService.getTasks().pipe(first()).subscribe(task => {
-      this.tasks = task;
-
+      this.tasks = task.sort((c1,c2) => moment(c1.deadline,"DD/MM/YYYY").valueOf()-moment(c2.deadline,"DD/MM/YYYY").valueOf())
+                        .filter(c1 => c1.state==0);
+      this.finishedTasks=task.filter(c1 => c1.state>0)
+      // console.log( moment(task[0].deadline,'DD/MM/YYYY').valueOf()+ " " +task[0].deadline);
 
     });
   }
@@ -134,16 +133,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   public taskDone(task:TaskDto){
     this.currentTask=task;
-    this.currentTask.state=true;
+    this.currentTask.state=1;
     this.userService.editUserTask(this.currentTask).pipe(first()).subscribe(task => {
-      // this.loadUserTasks();
+     this.loadUserTasks();
 
     });
   }
   public taskDelete(task:TaskDto){
 
     this.userService.deleteUserTask(task).pipe(first()).subscribe(task => {
-      // this.loadUserTasks();
+       this.loadUserTasks();
       this.cancel();
 
     });

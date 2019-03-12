@@ -1,9 +1,7 @@
-import { DaoResa } from './shared/models/dao-resa';
-import { TourneeInterface } from './shared/interfaces/tournee';
+
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
-import { ResaModel } from './shared/models/resa-model';
 import { User } from './_models/user';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
