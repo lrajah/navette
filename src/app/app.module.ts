@@ -21,6 +21,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
 import { PriorityManagerDirective } from './shared/directives/priority-manager.directive';
 import { UpcommingTasksComponent } from './components/upcomming-tasks/upcomming-tasks.component';
+import { RogueTasksComponent } from './components/rogue-tasks/rogue-tasks.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { UpcommingTasksComponent } from './components/upcomming-tasks/upcomming-
     RegisterComponent,
     EditDialogComponent,
     PriorityManagerDirective,
-    UpcommingTasksComponent
+    UpcommingTasksComponent,
+    RogueTasksComponent
   ],
   imports: [
     BrowserModule,

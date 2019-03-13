@@ -44,7 +44,12 @@
               </button>
               My tasks- 7 days
             </mat-list-item>
-
+            <mat-list-item mat-icon-button (click)="drawer.toggle()" role="listitem" [routerLink]="['roguetasks']">
+                <button mat-icon-button *ngIf=currentUser>
+                  <mat-icon>work_off</mat-icon>
+                </button>
+                My rogue tasks
+              </mat-list-item>
           <mat-list-item mat-icon-button (click)="drawer.toggle()" role="listitem">
             <button mat-icon-button *ngIf=currentUser>
               <mat-icon>perm_identity</mat-icon>

@@ -12,12 +12,17 @@
         </mat-card>
 
         <mat-accordion>
-            <mat-expansion-panel  [appPriorityManager]="task" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
-                *ngFor="let task of tasks | slice:0:6; let i=index">
+            <mat-expansion-panel [appPriorityManager]="task" (opened)="panelOpenState = true"
+                (closed)="panelOpenState = false" *ngFor="let task of tasks | slice:0:6; let i=index">
                 <mat-expansion-panel-header [appPriorityManager]="task">
 
                     <mat-panel-title>
-                        Projet: {{task.category.category}}
+                        <span *ngIf="task.category;else other_content">
+                            Projet: {{task.category.category}}
+                        </span>
+
+                        <ng-template #other_content> Projet: Empty</ng-template>
+
                     </mat-panel-title>
 
                     <mat-panel-description>
@@ -46,14 +51,13 @@
                             </mat-panel-description>
                             <mat-panel-description>
                                 <mat-form-field>
-                                            <mat-select formControlName="priority" placeholder="Priority: {{task.priority}}"
-                                                [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
-                                                <mat-option *ngFor="let priority of priorities"
-                                                    [value]="priority.value">
-                                                    {{priority.viewValue}}
-                                                </mat-option>
-                                            </mat-select>
-                                       
+                                    <mat-select formControlName="priority" placeholder="Priority: {{task.priority}}"
+                                        [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
+                                        <mat-option *ngFor="let priority of priorities" [value]="priority.value">
+                                            {{priority.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+
 
 
 
@@ -116,12 +120,16 @@
         </mat-card>
 
         <mat-accordion>
-            <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
                 *ngFor="let task of finishedTasks | slice:0:6; let i=index">
                 <mat-expansion-panel-header [appPriorityManager]="task">
 
                     <mat-panel-title>
-                        Projet: {{task.category.category}}
+                        <span *ngIf="task.category;else other_content">
+                            Projet: {{task.category.category}}
+                        </span>
+
+                        <ng-template #other_content> Projet: Empty</ng-template>
                     </mat-panel-title>
 
                     <mat-panel-description>
@@ -150,14 +158,13 @@
                             </mat-panel-description>
                             <mat-panel-description>
                                 <mat-form-field>
-                                            <mat-select formControlName="priority" placeholder="Priority: {{task.priority}}"
-                                                [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
-                                                <mat-option *ngFor="let priority of priorities"
-                                                    [value]="priority.value">
-                                                    {{priority.viewValue}}
-                                                </mat-option>
-                                            </mat-select>
-                                       
+                                    <mat-select formControlName="priority" placeholder="Priority: {{task.priority}}"
+                                        [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
+                                        <mat-option *ngFor="let priority of priorities" [value]="priority.value">
+                                            {{priority.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+
 
 
 
@@ -216,5 +223,3 @@
     </div>
 
 </div>
-
-

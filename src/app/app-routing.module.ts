@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home/home.component';
 import { AuthGuard } from './_guards/auth.service';
 import { RegisterComponent } from './register/register/register.component';
 import { UpcommingTasksComponent } from './components/upcomming-tasks/upcomming-tasks.component';
+import { RogueTasksComponent } from './components/rogue-tasks/rogue-tasks.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,12 @@ const routes: Routes = [
     component: UpcommingTasksComponent,
     canActivate: [AuthGuard] ,
     data: { title: 'Mes tâches 7 jours' }
+  },
+  {
+    path: 'roguetasks',
+    component: RogueTasksComponent,
+    canActivate: [AuthGuard] ,
+    data: { title: 'Mes tâches Rogue' }
   },
   {
     path: 'myprojects',
