@@ -21,6 +21,8 @@ import { PriorityManagerDirective } from './shared/directives/priority-manager.d
 import { AddTaskDialogComponent } from './components/add-task-dialog/add-task-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
+import { UpcommingTasksComponent } from './components/upcomming-tasks/upcomming-tasks.component';
+import { RogueTasksComponent } from './components/rogue-tasks/rogue-tasks.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/d
     EditDialogComponent,
     PriorityManagerDirective,
     AddTaskDialogComponent,
+    UpcommingTasksComponent,
+    RogueTasksComponent
   ],
   imports: [
     BrowserModule,

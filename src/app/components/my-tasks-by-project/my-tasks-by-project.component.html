@@ -3,6 +3,7 @@
 
 
   <div>
+    <div>
       <mat-card>
               <mat-label>Project: </mat-label>
             <mat-form-field>
@@ -14,10 +15,11 @@
                 </mat-select>
               </mat-form-field>
       </mat-card>
+    </div>
       <mat-accordion>
           <mat-expansion-panel [appPriorityManager]="task" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
               *ngFor="let task of selectedProjectTasks">
-              <mat-expansion-panel-header>
+              <mat-expansion-panel-header  [appPriorityManager]="task">
 
                   <mat-panel-title >
                       Projet: {{task.category.category}}
@@ -70,11 +72,11 @@
 
                       <div class="col-md-3">
                           <div class="form-group">
-                              <button [disabled]="loading" class="btn btn-primary">Save</button>
+                              <button mat-button [disabled]="loading" class="btn btn-primary">Save</button>
                               <mat-spinner *ngIf="loading"></mat-spinner>
 
 
-                              <a routerLink="/mytasks" class="btn btn-link" (click)="cancel()">Cancel</a>
+                              <button mat-button class="btn btn-secondary" (click)="cancel()">Cancel</button>
                           </div>
                       </div>
                   </div>

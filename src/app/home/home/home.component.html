@@ -11,60 +11,77 @@
     </div>
 
     <div>
-      <mat-card>
-        <h4>Upcomming Tasks</h4>
-      </mat-card>
+        <mat-card>
+            <h4>Upcomming Tasks</h4>
+        </mat-card>
 
-      <mat-accordion>
-        <mat-expansion-panel [appPriorityManager]="task" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
-          *ngFor="let task of tasks | slice:0:5; let i=index">
-          <mat-expansion-panel-header>
+        <mat-accordion>
+            <mat-expansion-panel [appPriorityManager]="task" (opened)="panelOpenState = true"
+                (closed)="panelOpenState = false" *ngFor="let task of tasks | slice:0:6; let i=index">
+                <mat-expansion-panel-header [appPriorityManager]="task">
 
-            <mat-panel-title>
-              Projet: {{task.category.category}}
-            </mat-panel-title>
+                    <mat-panel-title>
+                        <span *ngIf="task.category;else other_content">
+                            Projet: {{task.category.category}}
+                        </span>
 
-            <mat-panel-description>
-              {{task.label}}
-            </mat-panel-description>
+                        <ng-template #other_content> Projet: Empty</ng-template>
 
-          </mat-expansion-panel-header>
-          <form [formGroup]="editForm" (ngSubmit)="editTaskSubmit()" *ngIf="edit">
+                    </mat-panel-title>
 
-            <div class="row" *ngIf="edit">
-              <div class="col-md-9">
-                <mat-panel-description>
-                  <div>
-                    <mat-form-field>
-                      <input matInput [matDatepicker]="picker" formControlName="date" [ngClass]="{ 'is-invalid': submitted && f.date.errors }"
-                        placeholder="Date: {{task.deadline}}">
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                      <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
-                        <div *ngIf="f.date.errors.required">Deadline is required</div>
-                      </div>
-                    </mat-form-field>
+                    <mat-panel-description>
+                        {{task.label}}
+                    </mat-panel-description>
 
-                  </div>
-                </mat-panel-description>
-                <mat-panel-description>
-                  <mat-form-field>
-                    <mat-select formControlName="priority" placeholder="Priority: {{task.priority}}" [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
-                      <mat-option *ngFor="let priority of priorities" [value]="priority.value">
-                        {{priority.viewValue}}
-                      </mat-option>
-                    </mat-select>
+                </mat-expansion-panel-header>
+                <form [formGroup]="editForm" (ngSubmit)="editTaskSubmit()" *ngIf="edit">
+
+                    <div class="row" *ngIf="edit">
+                        <div class="col-md-9">
+                            <mat-panel-description>
+                                <div>
+                                    <mat-form-field>
+                                        <input matInput [matDatepicker]="picker" formControlName="date"
+                                            [ngClass]="{ 'is-invalid': submitted && f.date.errors }"
+                                            placeholder="Date: {{task.deadline}}">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                        <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                                            <div *ngIf="f.date.errors.required">Deadline is required</div>
+                                        </div>
+                                    </mat-form-field>
+
+                                </div>
+                            </mat-panel-description>
+                            <mat-panel-description>
+                                <mat-form-field>
+                                    <mat-select formControlName="priority" placeholder="Priority: {{task.priority}}"
+                                        [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
+                                        <mat-option *ngFor="let priority of priorities" [value]="priority.value">
+                                            {{priority.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
 
 
 
 
-                    <div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
-                      <div *ngIf="f.priority.errors.required">Priority is required</div>
+                                    <div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
+                                        <div *ngIf="f.priority.errors.required">Priority is required</div>
+                                    </div>
+                                </mat-form-field>
+
+                            </mat-panel-description>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn btn-primary">Save</button>
+                                <mat-spinner *ngIf="loading"></mat-spinner>
+
+                                <button mat-button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+                            </div>
+                        </div>
                     </div>
-                  </mat-form-field>
-
-                </mat-panel-description>
-              </div>
 
               <div class="col-md-3">
                 <div class="form-group">
@@ -75,11 +92,8 @@
                   <a routerLink="/mytasks" class="btn btn-link" (click)="cancel()">Cancel</a>
                 </div>
               </div>
-            </div>
-
 
           </form>
-
 
           <div class="row" *ngIf="!edit">
             <div class="col-md-9">
@@ -113,60 +127,77 @@
     </div>
 
     <div>
-      <mat-card>
-        <h4>Finished Tasks</h4>
-      </mat-card>
+        <mat-card>
+            <h4>Finished Tasks</h4>
+        </mat-card>
 
-      <mat-accordion>
-        <mat-expansion-panel [appPriorityManager]="task" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
-          *ngFor="let task of finishedTasks | slice:0:5; let i=index">
-          <mat-expansion-panel-header>
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+                *ngFor="let task of finishedTasks | slice:0:6; let i=index">
+                <mat-expansion-panel-header [appPriorityManager]="task">
 
-            <mat-panel-title>
-              Projet: {{task.category.category}}
-            </mat-panel-title>
+                    <mat-panel-title>
+                        <span *ngIf="task.category;else other_content">
+                            Projet: {{task.category.category}}
+                        </span>
 
-            <mat-panel-description>
-              {{task.label}}
-            </mat-panel-description>
+                        <ng-template #other_content> Projet: Empty</ng-template>
+                    </mat-panel-title>
 
-          </mat-expansion-panel-header>
-          <form [formGroup]="editForm" (ngSubmit)="editTaskSubmit()" *ngIf="edit">
+                    <mat-panel-description>
+                        {{task.label}}
+                    </mat-panel-description>
 
-            <div class="row" *ngIf="edit">
-              <div class="col-md-9">
-                <mat-panel-description>
-                  <div>
-                    <mat-form-field>
-                      <input matInput [matDatepicker]="picker" formControlName="date" [ngClass]="{ 'is-invalid': submitted && f.date.errors }"
-                        placeholder="Date: {{task.deadline}}">
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                      <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
-                        <div *ngIf="f.date.errors.required">Deadline is required</div>
-                      </div>
-                    </mat-form-field>
+                </mat-expansion-panel-header>
+                <form [formGroup]="editForm" (ngSubmit)="editTaskSubmit()" *ngIf="edit">
 
-                  </div>
-                </mat-panel-description>
-                <mat-panel-description>
-                  <mat-form-field>
-                    <mat-select formControlName="priority" placeholder="Priority: {{task.priority}}" [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
-                      <mat-option *ngFor="let priority of priorities" [value]="priority.value">
-                        {{priority.viewValue}}
-                      </mat-option>
-                    </mat-select>
+                    <div class="row" *ngIf="edit">
+                        <div class="col-md-9">
+                            <mat-panel-description>
+                                <div>
+                                    <mat-form-field>
+                                        <input matInput [matDatepicker]="picker" formControlName="date"
+                                            [ngClass]="{ 'is-invalid': submitted && f.date.errors }"
+                                            placeholder="Date: {{task.deadline}}">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                        <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                                            <div *ngIf="f.date.errors.required">Deadline is required</div>
+                                        </div>
+                                    </mat-form-field>
+
+                                </div>
+                            </mat-panel-description>
+                            <mat-panel-description>
+                                <mat-form-field>
+                                    <mat-select formControlName="priority" placeholder="Priority: {{task.priority}}"
+                                        [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
+                                        <mat-option *ngFor="let priority of priorities" [value]="priority.value">
+                                            {{priority.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
 
 
 
 
-                    <div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
-                      <div *ngIf="f.priority.errors.required">Priority is required</div>
+                                    <div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
+                                        <div *ngIf="f.priority.errors.required">Priority is required</div>
+                                    </div>
+                                </mat-form-field>
+
+                            </mat-panel-description>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button mat-button [disabled]="loading" class="btn btn-primary">Save</button>
+                                <mat-spinner *ngIf="loading"></mat-spinner>
+
+
+                                <button mat-button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+                            </div>
+                        </div>
                     </div>
-                  </mat-form-field>
-
-                </mat-panel-description>
-              </div>
 
               <div class="col-md-3">
                 <div class="form-group">
@@ -177,11 +208,8 @@
                   <a routerLink="/mytasks" class="btn btn-link" (click)="cancel()">Cancel</a>
                 </div>
               </div>
-            </div>
-
 
           </form>
-
 
           <div class="row" *ngIf="!edit">
             <div class="col-md-9">
@@ -210,8 +238,6 @@
           </div>
         </mat-expansion-panel>
 
-
       </mat-accordion>
     </div>
-
 </div>

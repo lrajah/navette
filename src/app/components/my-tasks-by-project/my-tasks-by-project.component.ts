@@ -84,7 +84,7 @@ export class MyTasksByProjectComponent implements OnInit {
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.currentUserSubscription.unsubscribe();
-    
+
   }
   dateLessThanToday(from: string) {
 
@@ -109,9 +109,11 @@ export class MyTasksByProjectComponent implements OnInit {
 
   private loadUserTasks() {
     this.userService.getTasks().pipe(first()).subscribe(task => {
-      this.tasks=task.sort((c1, c2) => moment(c1.deadline, "DD/MM/YYYY").valueOf() - moment(c2.deadline, "DD/MM/YYYY").valueOf())
-      .filter(c1 => c1.state == 0);
+      this.tasks=task.filter(c1=> c1.category!=null)
+                      .sort((c1, c2) => moment(c1.deadline, "DD/MM/YYYY").valueOf() - moment(c2.deadline, "DD/MM/YYYY").valueOf())
+                      .sort(c1=> c1.state);
       this.connectedUser.changeProject(this.tasks);
+      if(this.selectedProjectTitle) this.selectedProject();
       
       
 
@@ -133,6 +135,7 @@ export class MyTasksByProjectComponent implements OnInit {
   private editUserTask(task: TaskDto) {
     this.userService.editUserTask(task).pipe(first()).subscribe(task => {
       this.loadUserTasks();
+      
 
 
 
