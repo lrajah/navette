@@ -12,30 +12,53 @@
       <span>Todoist</span>
       <span class="spacer"></span>
       <button mat-icon-button (click)="logout()" *ngIf=currentUser>
-          <mat-icon>perm_identity</mat-icon>
-        </button>
-        
-        <span *ngIf=currentUser>{{user.nickname}}</span>
+        <mat-icon>power_settings_new</mat-icon>
+      </button>
+
+      <span *ngIf=currentUser>{{user.nickname}}</span>
     </mat-toolbar-row>
 
 
 
   </mat-toolbar>
-  <main>
-    <mat-drawer-container class="example-container" hasBackdrop="false">
+  <main class="body">
+    <mat-drawer-container class="example-container" hasBackdrop="true">
       <mat-drawer #drawer mode="over">
+        <h4>Welcome {{user.nickname}}</h4>
         <mat-list role="list">
-          <mat-list-item role="listitem" [routerLink]="['mytasks']">My tasks</mat-list-item>
-          <mat-list-item role="listitem"  [routerLink]="['myprojects']">My Projects</mat-list-item>
-          <mat-list-item role="listitem">Mon compte</mat-list-item>
+          <mat-list-item mat-icon-button (click)="drawer.toggle()" role="listitem" [routerLink]="['mytasks']">
+            <button mat-icon-button *ngIf=currentUser>
+              <mat-icon>assignment</mat-icon>
+            </button> My tasks
+          </mat-list-item>
+          <mat-list-item mat-icon-button (click)="drawer.toggle()" role="listitem" [routerLink]="['myprojects']">
+            <button mat-icon-button *ngIf=currentUser>
+              <mat-icon>tab</mat-icon>
+            </button>
+            My Projects
+          </mat-list-item>
+
+          <mat-list-item mat-icon-button (click)="drawer.toggle()" role="listitem" [routerLink]="['7days']">
+              <button mat-icon-button *ngIf=currentUser>
+                <mat-icon>date_range</mat-icon>
+              </button>
+              My tasks- 7 days
+            </mat-list-item>
+
+          <mat-list-item mat-icon-button (click)="drawer.toggle()" role="listitem">
+            <button mat-icon-button *ngIf=currentUser>
+              <mat-icon>perm_identity</mat-icon>
+            </button>
+            My account
+          </mat-list-item>
         </mat-list>
       </mat-drawer>
       <mat-drawer-content>
-        
-            <router-outlet></router-outlet>
-            <alert></alert>
-        
-          
+
+        <router-outlet></router-outlet>
+        <alert></alert>
+
+
       </mat-drawer-content>
     </mat-drawer-container>
   </main>

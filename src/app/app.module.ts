@@ -20,6 +20,7 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
 import { PriorityManagerDirective } from './shared/directives/priority-manager.directive';
+import { UpcommingTasksComponent } from './components/upcomming-tasks/upcomming-tasks.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PriorityManagerDirective } from './shared/directives/priority-manager.d
     LoginComponent,
     RegisterComponent,
     EditDialogComponent,
-    PriorityManagerDirective
+    PriorityManagerDirective,
+    UpcommingTasksComponent
   ],
   imports: [
     BrowserModule,

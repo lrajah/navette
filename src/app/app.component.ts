@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 import { UserDto } from './_models/user-dto';
 import { ConnectedUserService } from './_services/connected-user.service';
+import { UserService } from './_services/user.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -22,16 +24,26 @@ export class AppComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private connectedUser: ConnectedUserService
+    private connectedUser: ConnectedUserService,
+    private userService: UserService,
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     console.log('Constructeur de AppComponent !');
   }
 
   public ngOnInit() {
+    if(this.currentUser) this.loadLoggedUser(); 
     this.connectedUser.currentUser.subscribe(user => this.user = user)
     
   }
+  private loadLoggedUser() {
+    this.userService.getLoggedUser().pipe(first()).subscribe(user => {
+   this.connectedUser.changeUser(user);
+
+
+
+    });
+}
 
   logout() {
     this.authenticationService.logout();
