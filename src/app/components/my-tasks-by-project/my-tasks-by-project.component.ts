@@ -84,6 +84,7 @@ export class MyTasksByProjectComponent implements OnInit {
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.currentUserSubscription.unsubscribe();
+    
   }
   dateLessThanToday(from: string) {
 

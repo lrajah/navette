@@ -15,12 +15,11 @@
               </mat-form-field>
       </mat-card>
       <mat-accordion>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+          <mat-expansion-panel [appPriorityManager]="task" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
               *ngFor="let task of selectedProjectTasks">
               <mat-expansion-panel-header>
 
-                  <mat-panel-title>
-                    hello hello
+                  <mat-panel-title >
                       Projet: {{task.category.category}}
                   </mat-panel-title>
 

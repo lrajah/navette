@@ -12,7 +12,7 @@
         </mat-card>
 
         <mat-accordion>
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+            <mat-expansion-panel  [appPriorityManager]="task" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
                 *ngFor="let task of tasks | slice:0:5; let i=index">
                 <mat-expansion-panel-header>
 
@@ -117,7 +117,7 @@
         </mat-card>
 
         <mat-accordion>
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+            <mat-expansion-panel  [appPriorityManager]="task" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
                 *ngFor="let task of finishedTasks | slice:0:5; let i=index">
                 <mat-expansion-panel-header>
 

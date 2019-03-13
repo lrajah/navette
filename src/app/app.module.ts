@@ -7,7 +7,6 @@ import { IhmModule } from './shared/ihm/ihm/ihm.module';
 
 import { AppComponent } from './app.component';
 import { MomentPipe } from './shared/pipes/moment-pipe.pipe';
-import { ResaAutoDirective } from './shared/directives/resa-auto.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,10 +19,10 @@ import { RegisterComponent } from './register/register/register.component';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
+import { PriorityManagerDirective } from './shared/directives/priority-manager.directive';
 
 @NgModule({
   declarations: [
-    ResaAutoDirective,
     AppComponent,
     MomentPipe,
     MyTasksByProjectComponent,
@@ -31,7 +30,8 @@ import { EditDialogComponent } from './components/edit-dialog/edit-dialog.compon
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    EditDialogComponent
+    EditDialogComponent,
+    PriorityManagerDirective
   ],
   imports: [
     BrowserModule,
