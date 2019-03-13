@@ -4,26 +4,31 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertService } from 'src/app/_services/alert.service';
+import { UserService } from 'src/app/_services/user.service';
+import { ConnectedUserService } from 'src/app/_services/connected-user.service';
 
 
 
-@Component({templateUrl: 'login.component.html'})
+@Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
-    error:string;
+    error: string;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService
+        private alertService: AlertService,
+
+        private userService: UserService,
+        private connectedUser: ConnectedUserService
     ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) { 
+        if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/']);
         }
     }
@@ -40,7 +45,14 @@ export class LoginComponent implements OnInit {
 
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
+    private loadLoggedUser() {
+        this.userService.getLoggedUser().pipe(first()).subscribe(user => {
+       this.connectedUser.changeUser(user);
 
+
+
+        });
+    }
     onSubmit() {
         this.submitted = true;
 
@@ -55,6 +67,7 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
+                 this.loadLoggedUser();   
                 },
                 error => {
                     this.alertService.error(error);

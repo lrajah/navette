@@ -10,18 +10,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'src/app/_services/alert.service';
 import { TaskDto } from 'src/app/_models/task-dto';
 import * as moment from 'moment';
+import { ConnectedUserService } from 'src/app/_services/connected-user.service';
 
 export interface Priority {
   value: string;
   viewValue: string;
 }
 
-@Component({ templateUrl: 'home.component.html' })
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
+})
 export class HomeComponent implements OnInit, OnDestroy {
   currentUser: User;
   currentUserSubscription: Subscription;
   panelOpenState = false;
-  user: UserDto;
+  user: any;
   tasks: Array<TaskDto>;
   finishedTasks:Array<TaskDto>;
   edit: boolean = false;
@@ -41,17 +47,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    
+    private connectedUser: ConnectedUserService
   ) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
       this.currentTask = new TaskDto();
 
     });
+
   }
 
   ngOnInit() {
-    this.loadLoggedUser();
+    this.connectedUser.currentUser.subscribe(user => this.user = user)
+    // this.loadLoggedUser();
     this.loadUserTasks();
     this.editForm = this.formBuilder.group({
       priority: ['', Validators.required],
@@ -85,14 +95,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  private loadLoggedUser() {
-    this.userService.getLoggedUser().pipe(first()).subscribe(user => {
-      this.user = user;
+  // private loadLoggedUser() {
+  //   this.userService.getLoggedUser().pipe(first()).subscribe(user => {
+      
+      
+  //       this.connectedUser.changeUser(user);
+      
 
 
-    });
-  }
-  
+  //   });
+  // }
   private loadUserTasks() {
     this.userService.getTasks().pipe(first()).subscribe(task => {
       this.tasks = task.sort((c1,c2) => moment(c1.deadline,"DD/MM/YYYY").valueOf()-moment(c2.deadline,"DD/MM/YYYY").valueOf())

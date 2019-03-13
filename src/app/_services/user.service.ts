@@ -4,6 +4,7 @@ import { User } from '../_models/user';
 import { UserDto } from '../_models/user-dto';
 import { environment } from 'src/environments/environment';
 import { TaskDto } from '../_models/task-dto';
+import { CategoryDto } from '../_models/category-dto';
 
 
 @Injectable({ providedIn: 'root' })
@@ -17,6 +18,11 @@ export class UserService {
       const uri: string = environment.apiRoot + 'api/client';
       return this.http.get<UserDto>(uri);
   }
+
+  getUserProjects() {
+    const uri: string = environment.apiRoot + 'api/client/category';
+    return this.http.get<Array<CategoryDto>>(uri);
+}
 
 
     getById(id: number) {

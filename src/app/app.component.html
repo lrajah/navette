@@ -14,6 +14,8 @@
       <button mat-icon-button (click)="logout()" *ngIf=currentUser>
           <mat-icon>perm_identity</mat-icon>
         </button>
+        
+        <span *ngIf=currentUser>{{user.nickname}}</span>
     </mat-toolbar-row>
 
 
