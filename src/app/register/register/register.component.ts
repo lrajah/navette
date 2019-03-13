@@ -5,13 +5,15 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertService } from 'src/app/_services/alert.service';
+import { UserDto } from 'src/app/_models/user-dto';
 
 
-@Component({templateUrl: 'register.component.html'})
+@Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
+    userDto: UserDto;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -19,19 +21,19 @@ export class RegisterComponent implements OnInit {
         private authenticationService: AuthenticationService,
         private userService: UserService,
         private alertService: AlertService
-    ) { 
+    ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) { 
+        if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/']);
         }
+        this.userDto = new UserDto();
     }
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            username: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+            email: ['', Validators.required],
+            nickname: ['', Validators.required],
+            password: ['', [Validators.required, Validators.minLength(8)]]
         });
     }
 
@@ -46,6 +48,9 @@ export class RegisterComponent implements OnInit {
             return;
         }
 
+        this.userDto.email = this.registerForm.value.email;
+        this.userDto.nickname = this.registerForm.value.nickname;
+        this.userDto.password = this.registerForm.value.password;
         this.loading = true;
         this.userService.register(this.registerForm.value)
             .pipe(first())

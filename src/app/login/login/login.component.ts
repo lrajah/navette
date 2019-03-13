@@ -48,9 +48,6 @@ export class LoginComponent implements OnInit {
     private loadLoggedUser() {
         this.userService.getLoggedUser().pipe(first()).subscribe(user => {
        this.connectedUser.changeUser(user);
-
-
-
         });
     }
     onSubmit() {
@@ -67,7 +64,7 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
-                 this.loadLoggedUser();   
+                    this.loadLoggedUser();
                 },
                 error => {
                     this.alertService.error(error);

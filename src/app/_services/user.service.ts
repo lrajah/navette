@@ -9,46 +9,43 @@ import { CategoryDto } from '../_models/category-dto';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    getAll() {
-        return this.http.get<User[]>(`${config.apiUrl}/users`);
-    }
-    getLoggedUser() {
-      const uri: string = environment.apiRoot + 'api/client';
-      return this.http.get<UserDto>(uri);
+  getAll() {
+    return this.http.get<User[]>(`${config.apiUrl}/users`);
+  }
+  getLoggedUser() {
+    const uri: string = environment.apiRoot + 'api/client';
+    return this.http.get<UserDto>(uri);
   }
 
   getUserProjects() {
     const uri: string = environment.apiRoot + 'api/client/category';
     return this.http.get<Array<CategoryDto>>(uri);
-}
+  }
 
 
-    getById(id: number) {
-        return this.http.get(`${config.apiUrl}/users/${id}`);
-    }
+  getById(id: number) {
+    return this.http.get(`${config.apiUrl}/users/${id}`);
+  }
 
-    register(user: User) {
-        return this.http.post(`${config.apiUrl}/users/register`, user);
-    }
+  register(user: UserDto) {
+    const uri: string = environment.apiRoot + 'api/client/new';
+    return this.http.post(uri, user);
+  }
 
-    // update(user: User) {
-    //     return this.http.put(`${config.apiUrl}/users/${user.id}`, user);
-    // }
+  deleteUserTask(task: TaskDto) {
+    const uri: string = environment.apiRoot + 'api/client/task/delete';
+    return this.http.post(uri, task);
+  }
 
-    deleteUserTask(task: TaskDto) {
-      const uri: string = environment.apiRoot + 'api/client/task/delete';
-        return this.http.post(uri,task);
-    }
-
-    getTasks(){
-      const uri: string = environment.apiRoot + 'api/client/task';
-      return this.http.get<Array<TaskDto>>(uri);
-    }
-    editUserTask(task:TaskDto){
-      const uri: string = environment.apiRoot + 'api/client/task/modify';
-      return this.http.put<TaskDto>(uri,task);
-    }
+  getTasks() {
+    const uri: string = environment.apiRoot + 'api/client/task';
+    return this.http.get<Array<TaskDto>>(uri);
+  }
+  editUserTask(task: TaskDto) {
+    const uri: string = environment.apiRoot + 'api/client/task/modify';
+    return this.http.put<TaskDto>(uri, task);
+  }
 
 }

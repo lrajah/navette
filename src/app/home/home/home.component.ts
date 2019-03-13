@@ -4,37 +4,36 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { UserService } from 'src/app/_services/user.service';
 import { User } from 'src/app/_models/user';
-import { UserDto } from 'src/app/_models/user-dto';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService } from 'src/app/_services/alert.service';
 import { TaskDto } from 'src/app/_models/task-dto';
 import * as moment from 'moment';
 import { ConnectedUserService } from 'src/app/_services/connected-user.service';
+import { MatDialog } from '@angular/material';
+import { AddTaskDialogComponent } from 'src/app/components/add-task-dialog/add-task-dialog.component';
 
 export interface Priority {
   value: string;
   viewValue: string;
 }
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnInit, OnDestroy {
   currentUser: User;
   currentUserSubscription: Subscription;
   panelOpenState = false;
   user: any;
   tasks: Array<TaskDto>;
-  finishedTasks:Array<TaskDto>;
-  edit: boolean = false;
+  finishedTasks: Array<TaskDto>;
+  edit = false;
   editForm: FormGroup;
   loading = false;
   submitted = false;
-  currentTask:TaskDto;
+  currentTask: TaskDto;
 
   priorities: Priority[] = [
     { value: 'Low', viewValue: 'Low' },
@@ -45,11 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService,
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private alertService: AlertService,
-    
-    private connectedUser: ConnectedUserService
+    private connectedUser: ConnectedUserService,
+    public dialog: MatDialog
   ) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
@@ -95,39 +91,38 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  // private loadLoggedUser() {
-  //   this.userService.getLoggedUser().pipe(first()).subscribe(user => {
-      
-      
-  //       this.connectedUser.changeUser(user);
-      
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddTaskDialogComponent, {
+      width: '70%',
+      data: {}
+    });
 
-
-  //   });
-  // }
-  private loadUserTasks() {
-    this.userService.getTasks().pipe(first()).subscribe(task => {
-      this.tasks = task.sort((c1,c2) => moment(c1.deadline,"DD/MM/YYYY").valueOf()-moment(c2.deadline,"DD/MM/YYYY").valueOf())
-                        .filter(c1 => c1.state==0);
-      this.finishedTasks=task.filter(c1 => c1.state>0)
-      // console.log( moment(task[0].deadline,'DD/MM/YYYY').valueOf()+ " " +task[0].deadline);
-
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
     });
   }
-  private editUserTask(task:TaskDto) {
+
+  private loadUserTasks() {
+    this.userService.getTasks().pipe(first()).subscribe(task => {
+      this.tasks = task.sort((c1, c2) => moment(c1.deadline, 'DD/MM/YYYY').valueOf() - moment(c2.deadline, 'DD/MM/YYYY').valueOf())
+                        .filter(c1 => c1.state === 0);
+      this.finishedTasks=task.filter(c1 => c1.state > 0);
+      // console.log( moment(task[0].deadline,'DD/MM/YYYY').valueOf()+ " " +task[0].deadline);
+    });
+  }
+  private editUserTask(task: TaskDto) {
     this.userService.editUserTask(task).pipe(first()).subscribe(task => {
       // this.loadUserTasks();
-      
-
 
     });
   }
 
   get f() { return this.editForm.controls; }
-  public editTask(task:TaskDto) {
+  public editTask(task: TaskDto) {
     this.edit = !this.edit;
     this.panelOpenState = true;
-    this.currentTask=task;
+    this.currentTask = task;
     console.log(this.currentTask.id);
   }
   public editTaskSubmit() {
@@ -137,24 +132,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.editForm.invalid) {
       return;
     }
-    this.currentTask.priority=this.editForm.controls['priority'].value;
-    this.currentTask.deadline=this.editForm.controls['date'].value;
-    this.currentTask.deadline=moment(this.currentTask.deadline, "YYYY-MM-DD").format('DD/MM/YYYY')
+    this.currentTask.priority = this.editForm.controls['priority'].value;
+    this.currentTask.deadline = this.editForm.controls['date'].value;
+    this.currentTask.deadline = moment(this.currentTask.deadline, "YYYY-MM-DD").format('DD/MM/YYYY')
     this.editUserTask(this.currentTask);
     this.cancel();
   }
-  public taskDone(task:TaskDto){
-    this.currentTask=task;
-    this.currentTask.state=1;
+  public taskDone(task: TaskDto){
+    this.currentTask = task;
+    this.currentTask.state = 1;
     this.userService.editUserTask(this.currentTask).pipe(first()).subscribe(task => {
      this.loadUserTasks();
 
     });
   }
-  public taskDelete(task:TaskDto){
+  public taskDelete(task: TaskDto){
 
     this.userService.deleteUserTask(task).pipe(first()).subscribe(task => {
-       this.loadUserTasks();
+      this.loadUserTasks();
       this.cancel();
 
     });

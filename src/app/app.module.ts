@@ -1,5 +1,3 @@
-
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +18,9 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
 import { PriorityManagerDirective } from './shared/directives/priority-manager.directive';
+import { AddTaskDialogComponent } from './components/add-task-dialog/add-task-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PriorityManagerDirective } from './shared/directives/priority-manager.d
     LoginComponent,
     RegisterComponent,
     EditDialogComponent,
-    PriorityManagerDirective
+    PriorityManagerDirective,
+    AddTaskDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,20 +48,18 @@ import { PriorityManagerDirective } from './shared/directives/priority-manager.d
     ReactiveFormsModule,
     IhmModule,
     AppRoutingModule,
+    MatDialogModule,
     HttpClientModule,
+    MatIconModule
   ],
-
-    
   providers: [
-      {
-        provide: LOCALE_ID,
-        useValue: 'fr'
-      },
-      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'fr' },
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   entryComponents: [
-    // PaymentDialogComponent
+    AddTaskDialogComponent
   ],
   bootstrap: [AppComponent]
 })
