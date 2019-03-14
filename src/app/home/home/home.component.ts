@@ -16,6 +16,10 @@ export interface Priority {
   viewValue: string;
 }
 
+export interface DialogData {
+  currentTask: TaskDto;
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -29,13 +33,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   user: any;
 
   tasks: Array<any>;
-  finishedTasks:Array<TaskDto>;
-  edit: boolean = false;
+  finishedTasks: Array<TaskDto>;
+  edit = false;
 
   editForm: FormGroup;
   loading = false;
   submitted = false;
   currentTask: TaskDto;
+  disabledButton = false;
 
   priorities: Priority[] = [
     { value: 'Low', viewValue: 'Low' },
@@ -95,23 +100,31 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   openDialog(): void {
+    this.disabledButton = true;
     const dialogRef = this.dialog.open(AddTaskDialogComponent, {
       width: '70%',
-      data: {}
+      data: { currentTask: this.currentTask }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.animal = result;
+      this.disabledButton = false;
     });
   }
 
   private loadUserTasks() {
     this.userService.getTasks().pipe(first()).subscribe(task => {
+<<<<<<< HEAD
       this.tasks = task.sort((c1,c2) => moment(c1.deadline,"DD/MM/YYYY").valueOf()-moment(c2.deadline,"DD/MM/YYYY").valueOf())
                         .filter(c1 => c1.state==0);
       this.connectedUser.changeProject(this.tasks);                 
       this.finishedTasks=task.filter(c1 => c1.state>0)
+=======
+      let tasks = task.sort((c1, c2) => moment(c1.deadline, "DD/MM/YYYY").valueOf() - moment(c2.deadline, "DD/MM/YYYY").valueOf())
+        .filter(c1 => c1.state === 0);
+      this.connectedUser.changeProject(tasks);
+      this.finishedTasks = task.filter(c1 => c1.state > 0)
+>>>>>>> 9f5c69c41cdd378a6f18bf363d69287aa79e2f50
       //  console.log(JSON.stringify(this.tasks));
 
     });
@@ -147,11 +160,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.currentTask = task;
     this.currentTask.state = 1;
     this.userService.editUserTask(this.currentTask).pipe(first()).subscribe(task => {
-     this.loadUserTasks();
+      this.loadUserTasks();
 
     });
   }
-  public taskDelete(task: TaskDto){
+  public taskDelete(task: TaskDto) {
 
     this.userService.deleteUserTask(task).pipe(first()).subscribe(task => {
       this.loadUserTasks();

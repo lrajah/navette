@@ -5,8 +5,7 @@
       <button mat-icon-button (click)="drawer.toggle()" *ngIf=currentUser>
         <mat-icon>reorder</mat-icon>
       </button>
-
-
+      
       <span class="spacer"></span>
 
       <span>Todoist</span>
@@ -17,8 +16,6 @@
 
       <span *ngIf=currentUser>{{user.nickname}}</span>
     </mat-toolbar-row>
-
-
 
   </mat-toolbar>
   <main class="body">
