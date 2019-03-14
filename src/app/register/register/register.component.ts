@@ -9,6 +9,7 @@ import { UserDto } from 'src/app/_models/user-dto';
 
 
 @Component({ templateUrl: 'register.component.html' })
+
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;

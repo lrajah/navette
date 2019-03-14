@@ -1,7 +1,7 @@
 <div class="container">
 
-  <button mat-button (click)="openDialog()">
-    <mat-icon class="add_task">add_circle</mat-icon>
+  <button class="add_task" [disabled]="disabledButton" (click)="openDialog()">
+    <mat-icon>add_circle</mat-icon>
   </button>
 
   <div>
