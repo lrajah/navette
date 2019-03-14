@@ -94,8 +94,12 @@ private loadUserProjects() {
     this.userService.addUserTask(this.taskDto).pipe(first()).subscribe(task => {
       this.loadUserTasks();
 
+   },
+   error => {
+       this.alertService.error(error);
+       this.loading = false;
    });
-    
+  
   }
   private loadUserTasks() {
     this.userService.getTasks().pipe(first()).subscribe(task => {

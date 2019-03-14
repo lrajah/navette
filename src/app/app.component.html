@@ -57,12 +57,19 @@
       </mat-drawer>
       <mat-drawer-content>
 
+            
         <router-outlet></router-outlet>
         <alert></alert>
-
+        
 
       </mat-drawer-content>
     </mat-drawer-container>
+    <div class="row" *ngIf=currentUser>
+        <ngc-float-button icon="add" text-align="left" [disabled]="disabledButton" direction="right" >
+            <ngc-float-item-button icon="add" content="float item 1" [disabled]="disabledButton" (click)="openDialog()"></ngc-float-item-button>
+        </ngc-float-button>
+    </div>
+    
   </main>
 
 </div>

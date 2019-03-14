@@ -40,7 +40,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   loading = false;
   submitted = false;
   currentTask: TaskDto;
-  disabledButton = false;
+  numberOfOnGoingTask:number;
+  numberOfTask:number;
+  highPriorityTask:number;
+  finishedTask:number;
 
   priorities: Priority[] = [
     { value: 'Low', viewValue: 'Low' },
@@ -99,32 +102,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  openDialog(): void {
-    this.disabledButton = true;
-    const dialogRef = this.dialog.open(AddTaskDialogComponent, {
-      width: '70%',
-      data: { currentTask: this.currentTask }
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.disabledButton = false;
-    });
-  }
 
   private loadUserTasks() {
     this.userService.getTasks().pipe(first()).subscribe(task => {
-<<<<<<< HEAD
       this.tasks = task.sort((c1,c2) => moment(c1.deadline,"DD/MM/YYYY").valueOf()-moment(c2.deadline,"DD/MM/YYYY").valueOf())
                         .filter(c1 => c1.state==0);
       this.connectedUser.changeProject(this.tasks);                 
       this.finishedTasks=task.filter(c1 => c1.state>0)
-=======
-      let tasks = task.sort((c1, c2) => moment(c1.deadline, "DD/MM/YYYY").valueOf() - moment(c2.deadline, "DD/MM/YYYY").valueOf())
-        .filter(c1 => c1.state === 0);
-      this.connectedUser.changeProject(tasks);
-      this.finishedTasks = task.filter(c1 => c1.state > 0)
->>>>>>> 9f5c69c41cdd378a6f18bf363d69287aa79e2f50
+
+      this.numberOfOnGoingTask=this.tasks.filter(c1=> c1.state==0).length
+      this.numberOfTask=this.tasks.length;
+      this.highPriorityTask=this.tasks.filter(c1=> c1.priority=="High").length;
+      this.finishedTask=task.filter(c1=> c1.state==1).length;
       //  console.log(JSON.stringify(this.tasks));
 
     });

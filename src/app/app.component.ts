@@ -22,6 +22,8 @@ export class AppComponent implements OnInit {
   public title: string = 'Todoist';
   currentUser: User;
   user: any;
+  
+  disabledButton = false;
   public constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -54,15 +56,18 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  
+
   openDialog(): void {
+    this.disabledButton = true;
     const dialogRef = this.dialog.open(AddTaskDialogComponent, {
       width: '70%',
-      data: {}
+      data: { }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.animal = result;
+      this.disabledButton = false;
     });
   }
 }

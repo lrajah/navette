@@ -23,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
 import { UpcommingTasksComponent } from './components/upcomming-tasks/upcomming-tasks.component';
 import { RogueTasksComponent } from './components/rogue-tasks/rogue-tasks.component';
+import {NgcFloatButtonModule} from 'ngc-float-button';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { RogueTasksComponent } from './components/rogue-tasks/rogue-tasks.compon
     AppRoutingModule,
     MatDialogModule,
     HttpClientModule,
-    MatIconModule
+    MatIconModule,
+    NgcFloatButtonModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr' },

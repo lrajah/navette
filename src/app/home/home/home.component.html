@@ -1,13 +1,17 @@
 <div class="container">
 
-  <button class="add_task" [disabled]="disabledButton" (click)="openDialog()">
-    <mat-icon>note_add</mat-icon>
-  </button>
+  
 
   <div>
     <mat-card>
       <h4>Statistics</h4>
     </mat-card>
+    <mat-card background-color="#000000">
+            <div><h6>Number of ongoing tasks: {{numberOfOnGoingTask}}</h6> </div>
+            <div><h6>Number of tasks: {{numberOfTask}}</h6> </div>
+            <div><h6>Number of High priority tasks: {{highPriorityTask}}</h6> </div>
+            <div><h6> Number of completed tasks: {{finishedTask}}</h6></div>
+          </mat-card>
   </div>
 
   <div>
@@ -77,15 +81,7 @@
             </div>
           </div>
 
-          <div class="col-md-3">
-            <div class="form-group">
-              <button [disabled]="loading" class="btn btn-primary">Save</button>
-              <mat-spinner *ngIf="loading"></mat-spinner>
-
-
-              <a routerLink="/mytasks" class="btn btn-link" (click)="cancel()">Cancel</a>
-            </div>
-          </div>
+         
 
         </form>
 
@@ -187,15 +183,7 @@
             </div>
           </div>
 
-          <div class="col-md-3">
-            <div class="form-group">
-              <button [disabled]="loading" class="btn btn-primary">Save</button>
-              <mat-spinner *ngIf="loading"></mat-spinner>
-
-
-              <a routerLink="/mytasks" class="btn btn-link" (click)="cancel()">Cancel</a>
-            </div>
-          </div>
+          
 
         </form>
 
