@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   // tslint:disable-next-line:no-inferrable-types
   public title: string = 'Todoist';
   currentUser: User;
-  user:any;
+  user: any;
   public constructor(
     private toastr: ToastrService,
     private router: Router,

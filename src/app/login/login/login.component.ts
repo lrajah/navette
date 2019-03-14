@@ -7,8 +7,6 @@ import { AlertService } from 'src/app/_services/alert.service';
 import { UserService } from 'src/app/_services/user.service';
 import { ConnectedUserService } from 'src/app/_services/connected-user.service';
 
-
-
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
@@ -48,9 +46,6 @@ export class LoginComponent implements OnInit {
     private loadLoggedUser() {
         this.userService.getLoggedUser().pipe(first()).subscribe(user => {
        this.connectedUser.changeUser(user);
-
-
-
         });
     }
     onSubmit() {
@@ -67,7 +62,6 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
-                   
                 },
                 error => {
                     this.alertService.error(error);

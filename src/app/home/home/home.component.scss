@@ -1,15 +1,20 @@
 .mat-card {
-    background-color: rgb(236, 238, 241);
-    margin-bottom:10px
-  }
-  
-  div{
-    margin-bottom:10px
- }
- .spacer {
-    flex: 0.5 1 auto;
-  }
-  .mat-expansion-panel{
-    margin-bottom:0px
-  }
-  
+  background-color: rgb(236, 238, 241);
+  margin-bottom: 10px
+}
+
+div {
+  margin-bottom: 10px
+}
+
+.spacer {
+  flex: 0.5 1 auto;
+}
+
+.add_task {
+  color: rgb(15, 90, 199);
+}
+
+.mat-expansion-panel {
+  margin-bottom: 0px
+}
