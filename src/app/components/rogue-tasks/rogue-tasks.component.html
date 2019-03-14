@@ -2,35 +2,57 @@
 
   <div>
     <div>
-      <mat-card>
-        <h4>Rogue tasks</h4>
-      </mat-card>
-    </div>
+      <div>
+        <mat-card>
+          <h4>Rogue tasks</h4>
+        </mat-card>
+      </div>
+  
+      
+      <mat-accordion>
+        <mat-expansion-panel [appPriorityManager]="task" (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false" *ngFor="let task of tasks ">
+          <mat-expansion-panel-header>
+              <mat-panel-title>
+                  <span *ngIf="!tasks">
+                      You do not have any rogue tasks!
+                  </span>
+  
+                  
+              </mat-panel-title>
 
-    <mat-accordion>
-      <mat-expansion-panel [appPriorityManager]="task" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
-        *ngFor="let task of tasks ">
-        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <span *ngIf="task.category;else other_content">
+                    Projet: {{task.category.category}}
+                </span>
 
-          <mat-panel-title>
-            <span *ngIf="task.category;else other_content">
-              Projet: {{task.category.category}}
-            </span>
-
-            <ng-template #other_content> Projet: Empty</ng-template>
-          </mat-panel-title>
-
-          <mat-panel-description>
-            {{task.label}}
-          </mat-panel-description>
-
-        </mat-expansion-panel-header>
-        <form [formGroup]="editForm" (ngSubmit)="editTaskSubmit()" *ngIf="edit">
-
-          <div class="row" *ngIf="edit">
-            <div class="col-md-9">
-              <mat-panel-description>
-                <div>
+                <ng-template #other_content> Projet: Empty</ng-template>
+            </mat-panel-title>
+  
+            <mat-panel-description>
+              {{task.label}}
+            </mat-panel-description>
+  
+          </mat-expansion-panel-header>
+          <form [formGroup]="editForm" (ngSubmit)="editTaskSubmit()" *ngIf="edit">
+  
+            <div class="row" *ngIf="edit">
+              <div class="col-md-9">
+                <mat-panel-description>
+                  <div>
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="picker" formControlName="date"
+                        [ngClass]="{ 'is-invalid': submitted && f.date.errors }" placeholder="Date: {{task.deadline}}">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                        <div *ngIf="f.date.errors.required">Deadline is required</div>
+                      </div>
+                    </mat-form-field>
+  
+                  </div>
+                </mat-panel-description>
+                <mat-panel-description>
                   <mat-form-field>
                     <input matInput [matDatepicker]="picker" formControlName="date" [ngClass]="{ 'is-invalid': submitted && f.date.errors }"
                       placeholder="Date: {{task.deadline}}">

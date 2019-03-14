@@ -15,7 +15,11 @@
         <mat-expansion-panel-header>
 
           <mat-panel-title>
-            Projet: {{task.category.category}}
+              <span *ngIf="task.category;else other_content">
+                  Projet: {{task.category.category}}
+              </span>
+
+              <ng-template #other_content> Projet: Empty</ng-template>
           </mat-panel-title>
 
           <mat-panel-description>
