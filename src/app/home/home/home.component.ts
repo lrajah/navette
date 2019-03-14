@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentUserSubscription: Subscription;
   panelOpenState = false;
   user: any;
-  tasks: Array<TaskDto>;
+  tasks: Array<any>;
   finishedTasks:Array<TaskDto>;
   edit: boolean = false;
   editForm: FormGroup;
@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.connectedUser.currentUser.subscribe(user => this.user = user)
+    this.connectedUser.currentProject.subscribe(task => this.tasks = task)
     // this.loadLoggedUser();
     this.loadUserTasks();
     this.editForm = this.formBuilder.group({
@@ -107,8 +108,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   // }
   private loadUserTasks() {
     this.userService.getTasks().pipe(first()).subscribe(task => {
-      this.tasks = task.sort((c1,c2) => moment(c1.deadline,"DD/MM/YYYY").valueOf()-moment(c2.deadline,"DD/MM/YYYY").valueOf())
+      let tasks = task.sort((c1,c2) => moment(c1.deadline,"DD/MM/YYYY").valueOf()-moment(c2.deadline,"DD/MM/YYYY").valueOf())
                         .filter(c1 => c1.state==0);
+      this.connectedUser.changeProject(tasks);                 
       this.finishedTasks=task.filter(c1 => c1.state>0)
       //  console.log(JSON.stringify(this.tasks));
 

@@ -8,12 +8,19 @@
         </mat-card>
       </div>
   
-  
+      
       <mat-accordion>
         <mat-expansion-panel [appPriorityManager]="task" (opened)="panelOpenState = true"
           (closed)="panelOpenState = false" *ngFor="let task of tasks ">
           <mat-expansion-panel-header>
+              <mat-panel-title>
+                  <span *ngIf="!tasks">
+                      You do not have any rogue tasks!
+                  </span>
   
+                  
+              </mat-panel-title>
+
             <mat-panel-title>
                 <span *ngIf="task.category;else other_content">
                     Projet: {{task.category.category}}
