@@ -47,5 +47,9 @@ export class UserService {
     const uri: string = environment.apiRoot + 'api/client/task/modify';
     return this.http.put<TaskDto>(uri, task);
   }
+  addUserTask(task: TaskDto) {
+    const uri: string = environment.apiRoot + 'api/client/task/add';
+    return this.http.post<TaskDto>(uri, task);
+  }
 
 }

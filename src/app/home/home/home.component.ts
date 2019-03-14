@@ -108,9 +108,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private loadUserTasks() {
     this.userService.getTasks().pipe(first()).subscribe(task => {
-      let tasks = task.sort((c1,c2) => moment(c1.deadline,"DD/MM/YYYY").valueOf()-moment(c2.deadline,"DD/MM/YYYY").valueOf())
+      this.tasks = task.sort((c1,c2) => moment(c1.deadline,"DD/MM/YYYY").valueOf()-moment(c2.deadline,"DD/MM/YYYY").valueOf())
                         .filter(c1 => c1.state==0);
-      this.connectedUser.changeProject(tasks);                 
+      this.connectedUser.changeProject(this.tasks);                 
       this.finishedTasks=task.filter(c1 => c1.state>0)
       //  console.log(JSON.stringify(this.tasks));
 
@@ -118,7 +118,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   private editUserTask(task: TaskDto) {
     this.userService.editUserTask(task).pipe(first()).subscribe(task => {
-      // this.loadUserTasks();
+       this.loadUserTasks();
 
     });
   }

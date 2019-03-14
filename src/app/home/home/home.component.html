@@ -1,8 +1,9 @@
 <div class="container">
 
     <button mat-button (click)="openDialog()">
-    <mat-icon class="add_task">add_circle</mat-icon>
+    <mat-icon class="add_task">note_add</mat-icon>
     </button>
+    
 
     <div>
       <mat-card>
@@ -82,16 +83,6 @@
                             </div>
                         </div>
                     </div>
-
-              <div class="col-md-3">
-                <div class="form-group">
-                  <button [disabled]="loading" class="btn btn-primary">Save</button>
-                  <mat-spinner *ngIf="loading"></mat-spinner>
-
-
-                  <a routerLink="/mytasks" class="btn btn-link" (click)="cancel()">Cancel</a>
-                </div>
-              </div>
 
           </form>
 

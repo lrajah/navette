@@ -1,33 +1,62 @@
 <h1 mat-dialog-title>Task's Creation</h1>
 
 <div mat-dialog-content>
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="label">Label</label>
-      <input type="text" formControlName="label" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.label.errors }" />
-      <div *ngIf="submitted && f.label.errors" class="invalid-feedback">
-        <div *ngIf="f.label.errors.required">label is required</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="deadline">Deadline</label>
-      <input type="text" formControlName="deadline" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.deadline.errors }" />
-      <div *ngIf="submitted && f.deadline.errors" class="invalid-feedback">
-        <div *ngIf="f.deadline.errors.required">deadline is required</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="priority">Priority</label>
-      <input type="priority" formControlName="priority" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.priority.errors }" />
-      <div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
-        <div *ngIf="f.priority.errors.required">priority is required</div>
-      </div>
-    </div>
-  </form>
-</div>
-  
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button class="btn btn-primary">Create</button>
-</div>
 
+
+
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+
+    <div class="col-md-12">
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Project Name" formControlName="project" list="projectnames" id="cat"
+            name="projectchoice" />
+
+          <datalist id="projectnames">
+            <option *ngFor="let project of projects" [value]="project.category"></option>
+          </datalist>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Description" formControlName="label">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" formControlName="date"
+            [ngClass]="{ 'is-invalid': submitted && f.date.errors }" placeholder="Date: ">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+            <div *ngIf="f.date.errors.required">Deadline is required</div>
+          </div>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-select formControlName="priority" placeholder="Priority: "
+            [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
+            <mat-option *ngFor="let priority of priorities" [value]="priority.value">
+              {{priority.viewValue}}
+            </mat-option>
+          </mat-select>
+
+
+
+
+          <div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
+            <div *ngIf="f.priority.errors.required">Priority is required</div>
+          </div>
+        </mat-form-field>
+      </div>
+    </div>
+    
+
+  </form>
+  
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [disabled]="loading" mat-dialog-close cdkFocusInitial class="btn btn-primary" (click)="onSubmit()">Create</button>
+  </div>

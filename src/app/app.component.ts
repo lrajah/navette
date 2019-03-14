@@ -8,6 +8,8 @@ import { UserDto } from './_models/user-dto';
 import { ConnectedUserService } from './_services/connected-user.service';
 import { UserService } from './_services/user.service';
 import { first } from 'rxjs/operators';
+import { AddTaskDialogComponent } from './components/add-task-dialog/add-task-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -26,27 +28,41 @@ export class AppComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private connectedUser: ConnectedUserService,
     private userService: UserService,
+    
+    public dialog: MatDialog
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     console.log('Constructeur de AppComponent !');
   }
 
   public ngOnInit() {
-    if(this.currentUser) this.loadLoggedUser(); 
+    if (this.currentUser) this.loadLoggedUser();
     this.connectedUser.currentUser.subscribe(user => this.user = user)
-    
+
   }
   private loadLoggedUser() {
     this.userService.getLoggedUser().pipe(first()).subscribe(user => {
-   this.connectedUser.changeUser(user);
+      this.connectedUser.changeUser(user);
 
 
 
     });
-}
+  }
 
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
-}
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddTaskDialogComponent, {
+      width: '70%',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
+  }
 }
