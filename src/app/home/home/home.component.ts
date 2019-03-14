@@ -27,15 +27,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentUserSubscription: Subscription;
   panelOpenState = false;
   user: any;
-<<<<<<< HEAD
+
   tasks: Array<any>;
   finishedTasks:Array<TaskDto>;
   edit: boolean = false;
-=======
-  tasks: Array<TaskDto>;
-  finishedTasks: Array<TaskDto>;
-  edit = false;
->>>>>>> 9c4d5b689923a75f8d39b25c744e233478c3c30f
+
   editForm: FormGroup;
   loading = false;
   submitted = false;
